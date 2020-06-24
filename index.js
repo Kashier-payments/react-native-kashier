@@ -1,6 +1,10 @@
-import { NativeModules } from 'react-native';
+import { KashierConfig } from "./src/KashierConfig";
+import { KashierInit } from "./src/KashierInit";
+import { KashierServices } from "./src/KashierServices";
 
-const { Kashier } = NativeModules?.Kashier;
-
-//Testing Commit 2
+const Kashier = {
+  ...KashierConfig,
+  ...KashierInit,
+  ...KashierServices
+};
 export { Kashier };

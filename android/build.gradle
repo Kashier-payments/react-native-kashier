@@ -73,6 +73,15 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation files('libs/Kashier_Payment_SDK_1.0.3.aar')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.0'
 }
 
 def configureReactNativePom(def pom) {
@@ -82,7 +91,7 @@ def configureReactNativePom(def pom) {
         name packageJson.title
         artifactId packageJson.name
         version = packageJson.version
-        group = "io.kashier.sdk"
+        group = "kashier.wrapper"
         description packageJson.description
         url packageJson.repository.baseUrl
 
