@@ -1,12 +1,14 @@
 package kashier.wrapper;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 
 import io.kashier.sdk.Core.model.Response.Error.ErrorData;
@@ -89,10 +91,26 @@ public class KashierModule extends ReactContextBaseJavaModule {
             final Callback successCallback,
             final Callback errorCallback) {
 
+        AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
+
+//        Kashier.startPaymentActivity(activity, shopperReference, "123456", "34", new UserCallback<PaymentResponse>() {
+//            @Override
+//            public void onResponse(Response<PaymentResponse> response) {
+//                successCallback.invoke("Success");
+//            }
+//
+//            @Override
+//            public void onFailure(ErrorData<PaymentResponse> errorData) {
+//                WritableMap _errorData = KashierErrorDataParser.parseError(errorData);
+//                errorCallback.invoke(_errorData);
+//            }
+//        });
+
         Kashier.listShopperCards(shopperReference, new UserCallback<TokensListResponse>() {
             @Override
             public void onResponse(Response<TokensListResponse> response) {
-                successCallback.invoke("Success");
+                WritableArray tokensList = KashierTokensListParser.parseTokensList(response);
+                successCallback.invoke(tokensList);
             }
 
             @Override
