@@ -1,14 +1,13 @@
 package kashier.wrapper;
 
-import android.content.Context;
-
 import androidx.annotation.Nullable;
 
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.WritableMap;
 
 import io.kashier.sdk.Core.model.Response.Error.ErrorData;
 import io.kashier.sdk.Core.model.Response.TokensList.TokensListResponse;
@@ -94,14 +93,12 @@ public class KashierModule extends ReactContextBaseJavaModule {
             @Override
             public void onResponse(Response<TokensListResponse> response) {
                 successCallback.invoke("Success");
-//                successCallback.invoke(response);
             }
 
             @Override
             public void onFailure(ErrorData<TokensListResponse> errorData) {
-                errorCallback.invoke("Error");
-
-//                errorCallback.invoke(errorData);
+                WritableMap _errorData = KashierErrorDataParser.parseError(errorData);
+                errorCallback.invoke(_errorData);
             }
         });
 

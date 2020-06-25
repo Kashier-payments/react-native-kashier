@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const Kashier = NativeModules?.Kashier;
 
 const listCards = (shopperReference, successCallback, errorCallback) => {
-  return Platform.select({
+   Platform.select({
     android: (() => {
       Kashier.listCards(
         shopperReference,

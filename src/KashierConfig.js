@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 const Kashier = NativeModules?.Kashier;
 
 const getMerchantId = () => {
-  return Platform.select({
-    android: () => Kashier.getSdkMode()
-  });
+
 };
 const getApiKey = () => {};
 const getCurrency = async () => {
