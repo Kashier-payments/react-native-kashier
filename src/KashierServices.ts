@@ -1,12 +1,13 @@
 import { NativeModules, Platform } from "react-native";
-import { Card } from "./Card";
+import { Card } from "Card";
+import { KashierError } from "KashierError";
 
 const Kashier = NativeModules?.Kashier;
 
 const listCards = (
   shopperReference: string,
   successCallback: (result: any) => {},
-  errorCallback: (error: any) => {}
+  errorCallback: (error: KashierError) => {}
 ) => {
   Platform.select({
     android: (() => {
@@ -15,7 +16,7 @@ const listCards = (
         (result: any): any => {
           successCallback(result);
         },
-        (err: any): any => {
+        (err: KashierError): any => {
           errorCallback(err);
         }
       );

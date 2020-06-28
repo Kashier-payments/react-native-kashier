@@ -1,6 +1,6 @@
-import { KashierConfig } from "KashierConfig";
-import { KashierInit } from "KashierInit";
-import { KashierServices } from "KashierServices";
+import { KashierConfig } from "./src/KashierConfig";
+import { KashierInit } from "./src/KashierInit";
+import { KashierServices } from "./src/KashierServices";
 
 const Kashier = {
   ...KashierConfig,
