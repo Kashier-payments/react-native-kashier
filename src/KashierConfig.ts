@@ -1,12 +1,10 @@
-import { Platform, NativeModules } from "react-native";
-import PropTypes from "prop-types";
+import { NativeModules, Platform } from "react-native";
+
 const Kashier = NativeModules?.Kashier;
 
-const getMerchantId = () => {
-
-};
+const getMerchantId = () => {};
 const getApiKey = () => {};
-const getCurrency = async () => {
+const getCurrency = async (): Promise<string> => {
   return Platform.select({
     android: await Kashier.getCurrency()
   });
@@ -16,7 +14,7 @@ const getPaymentActivityCustomLayout = () => {};
 
 const setPaymentActivityCustomLayout = () => {};
 
-const getSdkMode = async () => {
+const getSdkMode = async (): Promise<"DEVELOPMENT" | "PRODUCTION"> => {
   return Platform.select({
     android: await Kashier.getSdkMode(),
     ios: (async () => {
