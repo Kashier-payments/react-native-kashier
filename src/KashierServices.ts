@@ -1,28 +1,8 @@
-import { NativeModules, Platform } from "react-native";
-import { Card } from "Card";
-import { KashierError } from "KashierError";
+import { NativeModules } from "react-native";
+import { Card } from "Model/Card";
+import { listCards } from "./Services/ListCards/ListCardsService";
 
 const Kashier = NativeModules?.Kashier;
-
-const listCards = (
-  shopperReference: string,
-  successCallback: (result: any) => {},
-  errorCallback: (error: KashierError) => {}
-) => {
-  Platform.select({
-    android: (() => {
-      Kashier.listCards(
-        shopperReference,
-        (result: any): any => {
-          successCallback(result);
-        },
-        (err: KashierError): any => {
-          errorCallback(err);
-        }
-      );
-    })()
-  });
-};
 
 const saveCard = (
   cardData: Card,
