@@ -1,5 +1,7 @@
 package kashier.wrapper;
 
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,10 +10,15 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 
+import io.kashier.sdk.Core.model.Card.Card;
+import io.kashier.sdk.Core.model.Request.Tokenization.TOKEN_VALIDITY;
+import io.kashier.sdk.Core.model.Response.Error.ERROR_TYPE;
 import io.kashier.sdk.Core.model.Response.Error.ErrorData;
+import io.kashier.sdk.Core.model.Response.Tokenization.TokenizationResponse;
 import io.kashier.sdk.Core.model.Response.TokensList.TokensListResponse;
 import io.kashier.sdk.Core.model.Response.UserCallback;
 import io.kashier.sdk.Core.network.SDK_MODE;
@@ -23,6 +30,10 @@ import retrofit2.Response;
 public class KashierModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
+
+//Use that line to start payment activity
+//    AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
+
 
     public KashierModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -91,7 +102,6 @@ public class KashierModule extends ReactContextBaseJavaModule {
             final Callback successCallback,
             final Callback errorCallback) {
 
-        AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
 
 //        Kashier.startPaymentActivity(activity, shopperReference, "123456", "34", new UserCallback<PaymentResponse>() {
 //            @Override
@@ -122,5 +132,47 @@ public class KashierModule extends ReactContextBaseJavaModule {
 
     }
 
+    @ReactMethod
+    public void saveCard(
+            ReadableMap cardData,
+            String shopperReference,
+            String tokenValidity,
+            final Callback successCallback,
+            final Callback errorCallback) throws Exception {
+        Card _cardData = new Card("", "", "", "", "");
+        try {
+            _cardData = KashierCardParser.parseCardData(cardData);
+        } catch (Exception ex) {
+            errorCallback.invoke(KashierCardParser.handleParsingError(cardData));
+            return;
+        }
+        TOKEN_VALIDITY _tokenValidity;
 
+        if (tokenValidity.equals(TOKEN_VALIDITY.PERMANENT.value())) {
+            _tokenValidity = TOKEN_VALIDITY.PERMANENT;
+        } else {
+            _tokenValidity = TOKEN_VALIDITY.TEMPORARY;
+        }
+        Kashier.saveShopperCard(_cardData, shopperReference, _tokenValidity, new UserCallback<TokenizationResponse>() {
+            @Override
+            public void onResponse(Response<TokenizationResponse> tokenizationResponse) {
+                if (tokenizationResponse != null
+                        && tokenizationResponse.body() != null
+                        && tokenizationResponse.body().getBody() != null
+                        && tokenizationResponse.body().getBody().getResponse() != null) {
+                    io.kashier.sdk.Core.model.Response.Tokenization.Response response = tokenizationResponse.body().getBody().getResponse();
+                    WritableMap _tokenizationResponseMap = TokenizationResponseParser.parseTokenizationResponse(response);
+                    successCallback.invoke(_tokenizationResponseMap);
+                } else {
+                    onFailure(new ErrorData<TokenizationResponse>().setErrorType(ERROR_TYPE.DATA).setErrorMessage("Missing data in response"));
+                }
+            }
+
+            @Override
+            public void onFailure(ErrorData<TokenizationResponse> errorData) {
+                WritableMap _errorData = KashierErrorDataParser.parseError(errorData);
+                errorCallback.invoke(_errorData);
+            }
+        });
+    }
 }
