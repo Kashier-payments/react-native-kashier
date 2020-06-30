@@ -2,18 +2,7 @@ import { NativeModules, Platform } from "react-native";
 
 const Kashier = NativeModules?.Kashier;
 
-const getMerchantId = () => {};
-const getApiKey = () => {};
-const getCurrency = async (): Promise<string> => {
-  return Platform.select({
-    android: await Kashier.getCurrency()
-  });
-};
-
-const getPaymentActivityCustomLayout = () => {};
-
-const setPaymentActivityCustomLayout = () => {};
-
+//Was used mainly in development to test the integration
 const getSdkMode = async (): Promise<"DEVELOPMENT" | "PRODUCTION"> => {
   return Platform.select({
     android: await Kashier.getSdkMode(),
@@ -27,13 +16,8 @@ const getDisplayLanguage = () => {};
 const setDisplayLanguage = () => {};
 
 const KashierConfig = {
-  getMerchantId,
-  getApiKey,
-  getCurrency,
-  getPaymentActivityCustomLayout,
-  setPaymentActivityCustomLayout,
-  getSdkMode,
-  getDisplayLanguage,
-  setDisplayLanguage
+  getSdkMode
+  // getDisplayLanguage,
+  // setDisplayLanguage
 };
 export { KashierConfig };

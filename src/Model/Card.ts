@@ -20,7 +20,7 @@ class Card {
     this.cardExpiryMonth = cardExpiryMonth;
     this.cardExpiryYear = cardExpiryYear;
   }
-  public static FromExpiryDate(
+  public static fromExpiryDate(
     cardHolderName: String,
     cardNumber: String,
     cardCcv: String,
@@ -35,7 +35,7 @@ class Card {
       null
     );
   }
-  public static FromExpiryMonth_Year(
+  public static fromExpiryMonth_Year(
     cardHolderName: String,
     cardNumber: String,
     cardCcv: String,

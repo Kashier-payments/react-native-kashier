@@ -18,6 +18,7 @@ import io.kashier.sdk.Core.model.Card.Card;
 import io.kashier.sdk.Core.model.Request.Tokenization.TOKEN_VALIDITY;
 import io.kashier.sdk.Core.model.Response.Error.ERROR_TYPE;
 import io.kashier.sdk.Core.model.Response.Error.ErrorData;
+import io.kashier.sdk.Core.model.Response.Payment.PaymentResponse;
 import io.kashier.sdk.Core.model.Response.Tokenization.TokenizationResponse;
 import io.kashier.sdk.Core.model.Response.TokensList.TokensListResponse;
 import io.kashier.sdk.Core.model.Response.UserCallback;
@@ -31,9 +32,6 @@ public class KashierModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
 
-//Use that line to start payment activity
-//    AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
-
 
     public KashierModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -45,13 +43,13 @@ public class KashierModule extends ReactContextBaseJavaModule {
         return "Kashier";
     }
 
-
-    @ReactMethod
-    public void sampleMethod(String stringArgument, int numberArgument, Callback callback) {
-        // TODO: Implement some actually useful functionality
-        callback.invoke("Received numberArgument: " + numberArgument + " stringArgument: " + stringArgument + Kashier.getSdkMode().toString());
-
-    }
+//
+//    @ReactMethod
+//    public void sampleMethod(String stringArgument, int numberArgument, Callback callback) {
+//        // TODO: Implement some actually useful functionality
+//        callback.invoke("Received numberArgument: " + numberArgument + " stringArgument: " + stringArgument + Kashier.getSdkMode().toString());
+//
+//    }
 
     @ReactMethod
     public void getSdkMode(Promise promise) {
@@ -63,10 +61,6 @@ public class KashierModule extends ReactContextBaseJavaModule {
         }
     }
 
-    @ReactMethod
-    public void getCurrency(Promise promise) {
-        promise.resolve(Kashier.getCurrency());
-    }
 
     @ReactMethod
     public void init(String merchantId,
@@ -101,21 +95,6 @@ public class KashierModule extends ReactContextBaseJavaModule {
             String shopperReference,
             final Callback successCallback,
             final Callback errorCallback) {
-
-
-//        Kashier.startPaymentActivity(activity, shopperReference, "123456", "34", new UserCallback<PaymentResponse>() {
-//            @Override
-//            public void onResponse(Response<PaymentResponse> response) {
-//                successCallback.invoke("Success");
-//            }
-//
-//            @Override
-//            public void onFailure(ErrorData<PaymentResponse> errorData) {
-//                WritableMap _errorData = KashierErrorDataParser.parseError(errorData);
-//                errorCallback.invoke(_errorData);
-//            }
-//        });
-
         Kashier.listShopperCards(shopperReference, new UserCallback<TokensListResponse>() {
             @Override
             public void onResponse(Response<TokensListResponse> response) {
@@ -170,6 +149,112 @@ public class KashierModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onFailure(ErrorData<TokenizationResponse> errorData) {
+                WritableMap _errorData = KashierErrorDataParser.parseError(errorData);
+                errorCallback.invoke(_errorData);
+            }
+        });
+    }
+
+
+    @ReactMethod
+    public void payUsingCard(
+            ReadableMap cardData,
+            String shopperReference,
+            String orderId,
+            String amount,
+            Boolean shouldSaveCard,
+            final Callback successCallback,
+            final Callback errorCallback) {
+        Card _cardData = new Card("", "", "", "", "");
+        try {
+            _cardData = KashierCardParser.parseCardData(cardData);
+        } catch (Exception ex) {
+            errorCallback.invoke(KashierCardParser.handleParsingError(cardData));
+            return;
+        }
+        Kashier.callPaymentAPI(_cardData, orderId, amount, shopperReference, shouldSaveCard, new UserCallback<PaymentResponse>() {
+            @Override
+            public void onResponse(Response<PaymentResponse> response) {
+                WritableMap paymentResponse = KashierPaymentResponseParser.parsePaymentResponse(response);
+                successCallback.invoke(paymentResponse);
+            }
+
+            @Override
+            public void onFailure(ErrorData<PaymentResponse> errorData) {
+                WritableMap _errorData = KashierErrorDataParser.parseError(errorData);
+                errorCallback.invoke(_errorData);
+            }
+        });
+    }
+
+    @ReactMethod
+    public void payUsingPaymentForm(
+            String shopperReference,
+            String orderId,
+            String amount,
+            final Callback successCallback,
+            final Callback errorCallback) {
+        AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
+        if (activity != null) {
+            Kashier.startPaymentActivity(activity, shopperReference, orderId, amount, new UserCallback<PaymentResponse>() {
+                @Override
+                public void onResponse(Response<PaymentResponse> response) {
+                    WritableMap paymentResponse = KashierPaymentResponseParser.parsePaymentResponse(response);
+                    successCallback.invoke(paymentResponse);
+                }
+
+                @Override
+                public void onFailure(ErrorData<PaymentResponse> errorData) {
+                    WritableMap _errorData = KashierErrorDataParser.parseError(errorData);
+                    errorCallback.invoke(_errorData);
+                }
+            });
+        } else {
+            Log.d("Kashier", "payUsingPaymentForm: Can't find activity");
+        }
+    }
+
+    @ReactMethod
+    public void payUsingTempToken(
+            String shopperReference,
+            String orderId,
+            String amount,
+            String cardToken,
+            String cvvToken,
+            final Callback successCallback,
+            final Callback errorCallback) {
+        Kashier.payWithTempToken(shopperReference, orderId, amount, cardToken, cvvToken, new UserCallback<PaymentResponse>() {
+            @Override
+            public void onResponse(Response<PaymentResponse> response) {
+                WritableMap paymentResponse = KashierPaymentResponseParser.parsePaymentResponse(response);
+                successCallback.invoke(paymentResponse);
+            }
+
+            @Override
+            public void onFailure(ErrorData<PaymentResponse> errorData) {
+                WritableMap _errorData = KashierErrorDataParser.parseError(errorData);
+                errorCallback.invoke(_errorData);
+            }
+        });
+    }
+
+    @ReactMethod
+    public void payUsingPermToken(
+            String shopperReference,
+            String orderId,
+            String amount,
+            String cardToken,
+            final Callback successCallback,
+            final Callback errorCallback) {
+        Kashier.payWithPermanentToken(shopperReference, orderId, amount, cardToken, new UserCallback<PaymentResponse>() {
+            @Override
+            public void onResponse(Response<PaymentResponse> response) {
+                WritableMap paymentResponse = KashierPaymentResponseParser.parsePaymentResponse(response);
+                successCallback.invoke(paymentResponse);
+            }
+
+            @Override
+            public void onFailure(ErrorData<PaymentResponse> errorData) {
                 WritableMap _errorData = KashierErrorDataParser.parseError(errorData);
                 errorCallback.invoke(_errorData);
             }
