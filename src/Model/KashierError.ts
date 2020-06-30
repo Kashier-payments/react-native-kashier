@@ -63,4 +63,4 @@ interface KashierError {
   errorMessage: string;
   exceptionErrorMessage: string;
 }
-export { KashierError };
+export { KashierError ,KashierResponseStatus};
