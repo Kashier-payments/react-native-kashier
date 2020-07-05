@@ -5,10 +5,14 @@
   "description": "TODO",
   "main": "index.ts",
   "files": [
-    "README.md",
     "android",
-    "index.ts",
     "ios",
+    "src",
+    "README.md",
+    "package.json",
+    "tsconfig.json",
+    "react-native-kashier.podspec",
+    "index.ts",
     "react-native-kashier.podspec"
   ],
   "scripts": {
