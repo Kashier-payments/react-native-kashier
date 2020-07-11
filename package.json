@@ -12,8 +12,7 @@
     "package.json",
     "tsconfig.json",
     "react-native-kashier.podspec",
-    "index.ts",
-    "react-native-kashier.podspec"
+    "index.ts"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

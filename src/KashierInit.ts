@@ -1,30 +1,38 @@
-import { Platform, NativeModules } from "react-native";
-const Kashier = NativeModules?.Kashier;
+import {Platform, NativeModules} from "react-native";
+
+const Kashier = Platform.select({
+    android: NativeModules?.Kashier,
+    ios: NativeModules?.KashierRCT
+});
 
 interface KashierInitParams {
-  merchantId: string;
-  apiKey: string;
-  currency: string;
-  sdkMode: "DEVELOPMENT" | "PRODUCTION";
-  displayLang: "EN" | "AR";
+    merchantId: string;
+    apiKey: string;
+    currency: string;
+    sdkMode: "DEVELOPMENT" | "PRODUCTION";
+    displayLang: "EN" | "AR";
 }
 
 const initialize = async (params: KashierInitParams): Promise<any> => {
-  const { merchantId, apiKey, currency, sdkMode, displayLang } = params;
-  return Platform.select({
-    android: await Kashier.init(
-      merchantId,
-      apiKey,
-      currency,
-      sdkMode,
-      displayLang
-    ),
-    ios: (async () => {
-      return await Kashier.getSdkMode();
-    })()
-  });
+    const {merchantId, apiKey, currency, sdkMode, displayLang} = params;
+    return Platform.select({
+        ios: (() => {
+            console.log('Inside Kashier.init iOS', Kashier)
+            Kashier.sampleMethod("str", 3235, (callback: any) => {
+                console.log('Callback', callback)
+            })
+
+        })(),
+        android: await Kashier.init(
+            merchantId,
+            apiKey,
+            currency,
+            sdkMode,
+            displayLang
+        ),
+    });
 };
 const KashierInit = {
-  initialize
+    initialize
 };
-export { KashierInit };
+export {KashierInit};
