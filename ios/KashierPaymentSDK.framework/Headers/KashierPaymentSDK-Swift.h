@@ -226,9 +226,36 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK21AddCardViewController")
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
+typedef SWIFT_ENUM(NSInteger, KASHIER_DISPLAY_LANG, closed) {
+  KASHIER_DISPLAY_LANGAR = 0,
+  KASHIER_DISPLAY_LANGEN = 1,
+};
+
+typedef SWIFT_ENUM(NSInteger, KASHIER_RESPONSE_STATUS, closed) {
+  KASHIER_RESPONSE_STATUSUNKNOWN = 0,
+  KASHIER_RESPONSE_STATUSSUCCESS = 1,
+  KASHIER_RESPONSE_STATUSFAILURE = 2,
+  KASHIER_RESPONSE_STATUSINVALID_REQUEST = 3,
+  KASHIER_RESPONSE_STATUSPENDING = 4,
+  KASHIER_RESPONSE_STATUSPENDING_ACTION = 5,
+};
+
+typedef SWIFT_ENUM(NSInteger, KASHIER_SDK_MODE, closed) {
+  KASHIER_SDK_MODEDEVELOPMENT = 0,
+  KASHIER_SDK_MODEPRODUCTION = 1,
+};
+
+typedef SWIFT_ENUM(NSInteger, KASHIER_TOKEN_VALIDITY, closed) {
+  KASHIER_TOKEN_VALIDITYTEMPORARY = 0,
+  KASHIER_TOKEN_VALIDITYPERMANENT = 1,
+};
+
 
 SWIFT_CLASS("_TtC17KashierPaymentSDK7Kashier")
 @interface Kashier : NSObject
++ (void)initializeObjCWithMerchantId:(NSString * _Nonnull)merchantId apiKey:(NSString * _Nonnull)apiKey sdkMode:(enum KASHIER_SDK_MODE)sdkMode;
++ (void)initializeObjCWithMerchantId:(NSString * _Nonnull)merchantId apiKey:(NSString * _Nonnull)apiKey sdkMode:(enum KASHIER_SDK_MODE)sdkMode currency:(NSString * _Nonnull)currency;
++ (void)initializeObjCWithMerchantId:(NSString * _Nonnull)merchantId apiKey:(NSString * _Nonnull)apiKey sdkMode:(enum KASHIER_SDK_MODE)sdkMode currency:(NSString * _Nonnull)currency displayLang:(enum KASHIER_DISPLAY_LANG)displayLang;
 + (NSString * _Nonnull)getString SWIFT_WARN_UNUSED_RESULT;
 + (NSString * _Nonnull)getStringWithParamWithStr:(NSString * _Nonnull)myStr SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;

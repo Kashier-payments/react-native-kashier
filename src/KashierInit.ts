@@ -13,23 +13,21 @@ interface KashierInitParams {
     displayLang: "EN" | "AR";
 }
 
-const initialize = async (params: KashierInitParams): Promise<any> => {
-    const {merchantId, apiKey, currency, sdkMode, displayLang} = params;
+const initialize = async (params: KashierInitParams) => {
+    const {merchantId, apiKey, sdkMode, currency = "EGP", displayLang = "EN"} = params;
     return Platform.select({
         ios: (() => {
-            console.log('Inside Kashier.init iOS', Kashier)
-            Kashier.sampleMethod("str", 3235, (callback: any) => {
-                console.log('Callback', callback)
-            })
-
+            Kashier.initialize(merchantId, apiKey, sdkMode, currency, displayLang)
         })(),
-        android: await Kashier.init(
-            merchantId,
-            apiKey,
-            currency,
-            sdkMode,
-            displayLang
-        ),
+        android: (() => {
+            Kashier.init(
+                merchantId,
+                apiKey,
+                currency,
+                sdkMode,
+                displayLang
+            )
+        })()
     });
 };
 const KashierInit = {

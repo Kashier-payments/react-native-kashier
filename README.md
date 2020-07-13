@@ -93,10 +93,8 @@ You’ll need to initialize Kashier SDK once in your application, preferred earl
 const ApiKey = '********-****-****-****-************';
 const merchantId = 'MID-XXXX-XXXX';
 
-/**
- * Note: The await is only because native calls are async, it resolves after it finishes initialization in the native code. Should be used only in case there's a direct call for any of the other functions of the SDK, otherwise, it can be safely ignored.
-*/
-await Kashier.initialize({
+
+Kashier.initialize({
     merchantId: merchantId,
     apiKey: ApiKey,
     currency: 'EGP',
