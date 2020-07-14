@@ -1,14 +1,15 @@
 import { NativeModules, Platform } from "react-native";
 
-const Kashier = NativeModules?.Kashier;
+const Kashier = Platform.select({
+  android: NativeModules?.Kashier,
+  ios: NativeModules?.KashierRCT
+});
 
 //Was used mainly in development to test the integration
 const getSdkMode = async (): Promise<"DEVELOPMENT" | "PRODUCTION"> => {
   return Platform.select({
     android: await Kashier.getSdkMode(),
-    ios: (async () => {
-      return await Kashier.getSdkMode();
-    })()
+    ios: await Kashier.getSdkMode()
   });
 };
 

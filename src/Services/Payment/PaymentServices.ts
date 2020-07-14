@@ -2,7 +2,10 @@ import { Card } from "Model/Card";
 import { KashierError } from "Model/KashierError";
 import { NativeModules, Platform } from "react-native";
 
-const Kashier = NativeModules?.Kashier;
+const Kashier = Platform.select({
+  android: NativeModules?.Kashier,
+  ios: NativeModules?.KashierRCT
+});
 
 const payUsingCard = (
   cardData: Card,

@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.watchmanconfig</key>
+		<data>
+		wLLkIDPn4VT2otpT8Iv9Oqv85ik=
+		</data>
 		<key>AddCardViewController.nib</key>
 		<data>
 		aLT8fP79QO0K59Q5uVw8tajHv9E=
@@ -14,7 +18,7 @@
 		</data>
 		<key>Headers/KashierPaymentSDK-Swift.h</key>
 		<data>
-		ieV9MkKldsJKueh5Auxb6Q1y+jE=
+		2hs9hNY2Ys6A1v7MQzU8jo4funI=
 		</data>
 		<key>Headers/PaymentSDK.h</key>
 		<data>
@@ -26,11 +30,11 @@
 		</data>
 		<key>Modules/KashierPaymentSDK.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		hgZjgo3NxbGP1lSw0GoM8XlYZM4=
+		NN7oWlIZbztXhmGGwWixJ+ynPtQ=
 		</data>
 		<key>Modules/KashierPaymentSDK.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<data>
-		hgZjgo3NxbGP1lSw0GoM8XlYZM4=
+		NN7oWlIZbztXhmGGwWixJ+ynPtQ=
 		</data>
 		<key>Modules/KashierPaymentSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -38,7 +42,7 @@
 		</data>
 		<key>Modules/KashierPaymentSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		tBw+lTB/d1EHn+F9/gwDhbm9DeM=
+		oEVbi0RHas0r/M9JQsDYtsAJmqE=
 		</data>
 		<key>Modules/KashierPaymentSDK.swiftmodule/x86_64.swiftdoc</key>
 		<data>
@@ -46,7 +50,7 @@
 		</data>
 		<key>Modules/KashierPaymentSDK.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		tBw+lTB/d1EHn+F9/gwDhbm9DeM=
+		oEVbi0RHas0r/M9JQsDYtsAJmqE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -63,6 +67,13 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>.watchmanconfig</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			rlx0pog9+p1bT5tN0oU7SG3CoKzIHnxscD2rgAD6Nnc=
+			</data>
+		</dict>
 		<key>AddCardViewController.nib</key>
 		<dict>
 			<key>hash2</key>
@@ -81,7 +92,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			thai8/4C6jyttgDDQUYnugoXrPMYDyfoPVvOrrHlGH8=
+			YiUm32oObELM9/2kV+uXggDIxzDIf+RjNNgQywcNrzw=
 			</data>
 		</dict>
 		<key>Headers/PaymentSDK.h</key>
@@ -95,14 +106,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			BYWHEaf9aSErmQ7Ml+sZGSXa/l86e92b5+BecBTNaL8=
+			E2/8/1QK+SHagqVwoetA3spUP7Tsgo+UY2IUN5aCrew=
 			</data>
 		</dict>
 		<key>Modules/KashierPaymentSDK.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			BYWHEaf9aSErmQ7Ml+sZGSXa/l86e92b5+BecBTNaL8=
+			E2/8/1QK+SHagqVwoetA3spUP7Tsgo+UY2IUN5aCrew=
 			</data>
 		</dict>
 		<key>Modules/KashierPaymentSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -116,7 +127,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			pI6nL0pkt5F7/X+z8oSfHUH1J6DeldGz0tbklS65WA4=
+			VcC/YVr8XsGYe2D43dtjj7WAKVrh/ELbk+kZXLpVPOE=
 			</data>
 		</dict>
 		<key>Modules/KashierPaymentSDK.swiftmodule/x86_64.swiftdoc</key>
@@ -130,7 +141,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			pI6nL0pkt5F7/X+z8oSfHUH1J6DeldGz0tbklS65WA4=
+			VcC/YVr8XsGYe2D43dtjj7WAKVrh/ELbk+kZXLpVPOE=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

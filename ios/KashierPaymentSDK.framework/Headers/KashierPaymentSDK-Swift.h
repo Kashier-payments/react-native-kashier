@@ -253,6 +253,8 @@ typedef SWIFT_ENUM(NSInteger, KASHIER_TOKEN_VALIDITY, closed) {
 
 SWIFT_CLASS("_TtC17KashierPaymentSDK7Kashier")
 @interface Kashier : NSObject
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) enum KASHIER_SDK_MODE sdkMode;)
++ (enum KASHIER_SDK_MODE)sdkMode SWIFT_WARN_UNUSED_RESULT;
 + (void)initializeObjCWithMerchantId:(NSString * _Nonnull)merchantId apiKey:(NSString * _Nonnull)apiKey sdkMode:(enum KASHIER_SDK_MODE)sdkMode;
 + (void)initializeObjCWithMerchantId:(NSString * _Nonnull)merchantId apiKey:(NSString * _Nonnull)apiKey sdkMode:(enum KASHIER_SDK_MODE)sdkMode currency:(NSString * _Nonnull)currency;
 + (void)initializeObjCWithMerchantId:(NSString * _Nonnull)merchantId apiKey:(NSString * _Nonnull)apiKey sdkMode:(enum KASHIER_SDK_MODE)sdkMode currency:(NSString * _Nonnull)currency displayLang:(enum KASHIER_DISPLAY_LANG)displayLang;

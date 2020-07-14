@@ -21,10 +21,13 @@ RCT_EXPORT_METHOD(initialize:(NSString *)merchantId
 				  apiKey:(NSString *)apiKey
 				  sdkMode:(NSString *)sdkMode
 				  currency:(NSString *)currency
-				  displayLang:(NSString *)displayLang)
+				  displayLang:(NSString *)displayLang
+				  _:(RCTPromiseResolveBlock)resolve
+				  _:(RCTPromiseRejectBlock)reject)
 {
 	enum KASHIER_SDK_MODE _sdkMode;
 	enum KASHIER_DISPLAY_LANG _displayLang;
+
 
 	if([sdkMode isEqualToString:@"DEVELOPMENT"]){
 		_sdkMode = KASHIER_SDK_MODEDEVELOPMENT;
@@ -37,6 +40,19 @@ RCT_EXPORT_METHOD(initialize:(NSString *)merchantId
 		_displayLang = KASHIER_DISPLAY_LANGEN;
 	}
 	[Kashier initializeObjCWithMerchantId:merchantId apiKey:apiKey sdkMode:_sdkMode currency:currency displayLang:_displayLang];
+	resolve(NULL);
 }
 
+RCT_EXPORT_METHOD(getSdkMode:(RCTPromiseResolveBlock)resolve
+				 _:(RCTPromiseRejectBlock)reject)
+{
+	enum KASHIER_SDK_MODE _sdkMode = [Kashier sdkMode];
+	NSString *sdkModeStr = NULL;
+	if(_sdkMode == KASHIER_SDK_MODEPRODUCTION){
+		sdkModeStr = @"PRODUCTION";
+	}else{
+		sdkModeStr = @"DEVELOPMENT";
+	}
+	resolve(sdkModeStr);
+}
 @end

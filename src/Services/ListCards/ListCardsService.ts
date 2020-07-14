@@ -1,7 +1,10 @@
 import { KashierError } from "Model/KashierError";
 import { NativeModules, Platform } from "react-native";
 import { ListCardsResponse } from "Services/ListCards/ListCardsResponse";
-const Kashier = NativeModules?.Kashier;
+const Kashier = Platform.select({
+  android: NativeModules?.Kashier,
+  ios: NativeModules?.KashierRCT
+});
 
 const listCards = (
   shopperReference: string,

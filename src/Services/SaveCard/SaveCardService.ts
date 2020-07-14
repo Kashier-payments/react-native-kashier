@@ -2,7 +2,10 @@ import { KashierError } from "Model/KashierError";
 import { NativeModules, Platform } from "react-native";
 import { Card } from "../../Model/Card";
 import { SaveCardResponse } from "Services/SaveCard/SaveCardResponse";
-const Kashier = NativeModules?.Kashier;
+const Kashier = Platform.select({
+  android: NativeModules?.Kashier,
+  ios: NativeModules?.KashierRCT
+});
 type tokenValidity = "temp" | "perm";
 
 const saveCard = (
