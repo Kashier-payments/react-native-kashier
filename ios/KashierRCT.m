@@ -60,4 +60,34 @@ RCT_EXPORT_METHOD(listCards:(NSString*)shopperReference
 		callback([KashierCallback getErrorCallback:errorData]);
 	}]];
 }
+
+RCT_EXPORT_METHOD(saveCard:(NSDictionary*)cardData
+				  _:(NSString*)shopperReference
+				  _:(NSString*)tokenValidity
+				  _:(RCTResponseSenderBlock)callback)
+{
+	enum KASHIER_TOKEN_VALIDITY _tokenValidity;
+	if([tokenValidity isEqualToString:@"perm"]){
+		_tokenValidity = KASHIER_TOKEN_VALIDITYPERMANENT;
+	}else{
+		_tokenValidity = KASHIER_TOKEN_VALIDITYTEMPORARY;
+	}
+	
+	Card* card = [KashierCardParser parseCardData:cardData callbackForError:callback];
+	if(card != NULL){
+		[Kashier saveShopperCardWithCardData:card
+							shopperReference:shopperReference
+							   tokenValidity:_tokenValidity
+						tokenizationCallback:[[TokenizationCallback alloc]
+											  initOnResponse:^(TokenizationResponse * tokenizationResponse) {
+			printf("Create token success");
+			
+			
+			
+		} onFailure:^(ErrorData * _errorData) {
+			NSDictionary* errorData = [KashierErrorDataParser parseError:_errorData];
+			callback([KashierCallback getErrorCallback:errorData]);
+		}]];
+	}
+}
 @end

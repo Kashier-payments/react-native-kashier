@@ -11,8 +11,11 @@
 
 +(BOOL) isEmptyString : (NSString *)string
 {
-	if([string length] == 0 || [string isKindOfClass:[NSNull class]] ||
-	   [string isEqualToString:@""]|| string == nil)
+	if(
+	   [string isKindOfClass:[NSNull class]] ||
+	   string == nil ||
+	   [string isEqualToString:@""] ||
+	   [string length] == 0	)
 	{
 		return YES;         //IF String Is An Empty String
 	}

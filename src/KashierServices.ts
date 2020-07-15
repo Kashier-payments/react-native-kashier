@@ -8,8 +8,6 @@ import {
   payUsingTempToken
 } from "./Services/Payment/PaymentServices";
 
-const Kashier = NativeModules?.Kashier;
-
 const KashierServices = {
   listCards,
   saveCard,
