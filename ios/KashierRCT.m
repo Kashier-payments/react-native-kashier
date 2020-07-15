@@ -80,8 +80,10 @@ RCT_EXPORT_METHOD(saveCard:(NSDictionary*)cardData
 							   tokenValidity:_tokenValidity
 						tokenizationCallback:[[TokenizationCallback alloc]
 											  initOnResponse:^(TokenizationResponse * tokenizationResponse) {
-			printf("Create token success");
 			
+			
+			NSDictionary* parsedTokenizationResponse = [KashierTokenizationResponseParser parseTokenizationResponse:tokenizationResponse];
+			callback([KashierCallback getSuccessCallback:parsedTokenizationResponse]);
 			
 			
 		} onFailure:^(ErrorData * _errorData) {

@@ -5,6 +5,8 @@
 #import "KashierTokensListParser.h"
 #import "KashierErrorDataParser.h"
 #import "KashierCardParser.h"
+#import "KashierTokenizationResponseParser.h"
+
 @interface KashierRCT : NSObject <RCTBridgeModule>
 
 @end
