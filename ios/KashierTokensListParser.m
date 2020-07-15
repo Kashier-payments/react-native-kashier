@@ -9,7 +9,7 @@
 
 @implementation KashierTokensListParser
 
-+ (NSMutableArray*) parseTokensList: (TokensList*) tokensList{
++ (NSArray*) parseTokensList: (TokensList*) tokensList{
 	
 	NSArray<Token*>* tokens = tokensList.response.tokens;
 	NSMutableArray* tokensArray=[[NSMutableArray alloc] init];

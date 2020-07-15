@@ -5,18 +5,6 @@
 
 RCT_EXPORT_MODULE()
 
-
-RCT_EXPORT_METHOD(sampleMethod:(NSString *)stringArgument numberParameter:(nonnull NSNumber *)numberArgument callback:(RCTResponseSenderBlock)callback)
-{
-    // TODO: Implement some actually useful functionality
-    	NSString *contentOfURLKashierWithParams = [Kashier getStringWithParamWithStr:@"Hello There" ];
-
-    	printf("Kashier: with params3 %s\n",[contentOfURLKashierWithParams UTF8String]);
-//comment
-	[Kashier initializeObjCWithMerchantId:@"Merchant ID Param" apiKey:@"API Key Param" sdkMode:KASHIER_SDK_MODEDEVELOPMENT];
-    callback(@[[NSString stringWithFormat: @"numberArgument: %@ stringArgument: %@", numberArgument, stringArgument]]);
-}
-
 RCT_EXPORT_METHOD(initialize:(NSString *)merchantId
 				  apiKey:(NSString *)apiKey
 				  sdkMode:(NSString *)sdkMode
@@ -54,7 +42,6 @@ RCT_EXPORT_METHOD(getSdkMode:(RCTPromiseResolveBlock)resolve
 		sdkModeStr = @"DEVELOPMENT";
 	}
 	resolve(sdkModeStr);
-
 }
 
 
@@ -63,18 +50,14 @@ RCT_EXPORT_METHOD(getSdkMode:(RCTPromiseResolveBlock)resolve
 RCT_EXPORT_METHOD(listCards:(NSString*)shopperReference
 				  _:(RCTResponseSenderBlock)callback)
 {
-	TokensListCallback *_tokensCallback = [[TokensListCallback alloc] initOnResponse:^(TokensList * tokensList) {
-	
+	[Kashier listShopperCardsWithShopperReference:shopperReference userCallBack:[[TokensListCallback alloc] initOnResponse:^(TokensList * tokensList) {
+		
 		NSArray<NSDictionary*>* tokensArray = [KashierTokensListParser parseTokensList:tokensList];
 		callback([KashierCallback getSuccessCallback:tokensArray]);
-
+		
 	} onFailure:^(ErrorData * _errorData) {
-		
-		printf("Error Data");
-		callback([KashierCallback getErrorCallback:@"error"]);
-		
-	}];
-	
-	[Kashier listShopperCardsWithShopperReference:shopperReference userCallBack:_tokensCallback];
+		NSDictionary* errorData = [KashierErrorDataParser parseError:_errorData];
+		callback([KashierCallback getErrorCallback:errorData]);
+	}]];
 }
 @end
