@@ -1,4 +1,5 @@
 #import "KashierRCT.h"
+#import "KashierCallback.h"
 #import <KashierPaymentSDK/KashierPaymentSDK-Swift.h>
 
 @implementation KashierRCT
@@ -28,7 +29,7 @@ RCT_EXPORT_METHOD(initialize:(NSString *)merchantId
 	enum KASHIER_SDK_MODE _sdkMode;
 	enum KASHIER_DISPLAY_LANG _displayLang;
 
-
+	
 	if([sdkMode isEqualToString:@"DEVELOPMENT"]){
 		_sdkMode = KASHIER_SDK_MODEDEVELOPMENT;
 	}else{
@@ -54,5 +55,39 @@ RCT_EXPORT_METHOD(getSdkMode:(RCTPromiseResolveBlock)resolve
 		sdkModeStr = @"DEVELOPMENT";
 	}
 	resolve(sdkModeStr);
+
+}
+
+
+
+
+RCT_EXPORT_METHOD(listCards:(NSString*)shopperReference
+				  _:(RCTResponseSenderBlock)callback)
+{
+	enum KASHIER_SDK_MODE _sdkMode = [Kashier sdkMode];
+	NSString *sdkModeStr = NULL;
+	if(_sdkMode == KASHIER_SDK_MODEPRODUCTION){
+		sdkModeStr = @"PRODUCTION";
+	}else{
+		sdkModeStr = @"DEVELOPMENT";
+	}
+	
+	NSMutableDictionary *mutableDict = [[NSMutableDictionary alloc]init];
+	[mutableDict setObject:@"Value1" forKey:@"Key1"];
+	[mutableDict setObject:@"Value2" forKey:@"Key2"];
+	[mutableDict setObject:@"Value3" forKey:@"Key3"];
+	
+//	callback(@[[NSNull null], mutableDict]);
+//		callback(@[mutableDict, [NSNull null]]);
+	callback([KashierCallback getSuccessCallback:mutableDict]);
+	
+	//	NSArray *events = NULL;
+	//	NSString *str = @"some string";
+	//	if (events) {
+	//		resolve(str);
+	//	} else {
+	//		NSError *error =NULL;
+	//		reject(@"no_events", @"There were no events", error);
+	//	}
 }
 @end
