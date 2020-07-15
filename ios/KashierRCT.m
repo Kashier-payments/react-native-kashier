@@ -1,6 +1,5 @@
 #import "KashierRCT.h"
-#import "KashierCallback.h"
-#import <KashierPaymentSDK/KashierPaymentSDK-Swift.h>
+
 
 @implementation KashierRCT
 
@@ -64,30 +63,18 @@ RCT_EXPORT_METHOD(getSdkMode:(RCTPromiseResolveBlock)resolve
 RCT_EXPORT_METHOD(listCards:(NSString*)shopperReference
 				  _:(RCTResponseSenderBlock)callback)
 {
-	enum KASHIER_SDK_MODE _sdkMode = [Kashier sdkMode];
-	NSString *sdkModeStr = NULL;
-	if(_sdkMode == KASHIER_SDK_MODEPRODUCTION){
-		sdkModeStr = @"PRODUCTION";
-	}else{
-		sdkModeStr = @"DEVELOPMENT";
-	}
+	TokensListCallback *_tokensCallback = [[TokensListCallback alloc] initOnResponse:^(TokensList * tokensList) {
 	
-	NSMutableDictionary *mutableDict = [[NSMutableDictionary alloc]init];
-	[mutableDict setObject:@"Value1" forKey:@"Key1"];
-	[mutableDict setObject:@"Value2" forKey:@"Key2"];
-	[mutableDict setObject:@"Value3" forKey:@"Key3"];
+		NSArray<NSDictionary*>* tokensArray = [KashierTokensListParser parseTokensList:tokensList];
+		callback([KashierCallback getSuccessCallback:tokensArray]);
+
+	} onFailure:^(ErrorData * _errorData) {
+		
+		printf("Error Data");
+		callback([KashierCallback getErrorCallback:@"error"]);
+		
+	}];
 	
-//	callback(@[[NSNull null], mutableDict]);
-//		callback(@[mutableDict, [NSNull null]]);
-	callback([KashierCallback getSuccessCallback:mutableDict]);
-	
-	//	NSArray *events = NULL;
-	//	NSString *str = @"some string";
-	//	if (events) {
-	//		resolve(str);
-	//	} else {
-	//		NSError *error =NULL;
-	//		reject(@"no_events", @"There were no events", error);
-	//	}
+	[Kashier listShopperCardsWithShopperReference:shopperReference userCallBack:_tokensCallback];
 }
 @end

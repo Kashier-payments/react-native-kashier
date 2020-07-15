@@ -7,7 +7,7 @@
 
 #ifndef KashierCallback_h
 #define KashierCallback_h
-
+#import <Foundation/Foundation.h>
 
 @interface KashierCallback : NSObject
 
