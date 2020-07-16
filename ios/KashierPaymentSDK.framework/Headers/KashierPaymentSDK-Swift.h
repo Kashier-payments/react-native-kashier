@@ -251,18 +251,20 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK12Card3DSecure")
 @property (nonatomic, copy) NSString * _Nullable processACSRedirectURL;
 @property (nonatomic, copy) NSString * _Nullable requestType;
 @property (nonatomic, copy) NSString * _Nullable the3DSecureID;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 @class CardInfo;
-@class Order;
+@class Transaction;
 
 SWIFT_CLASS("_TtC17KashierPaymentSDK8CardCard")
 @interface CardCard : NSObject
 @property (nonatomic, strong) Card3DSecure * _Nullable the3DSecure;
 @property (nonatomic, strong) CardInfo * _Nullable cardInfo;
-@property (nonatomic, strong) Order * _Nullable transaction;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@property (nonatomic, strong) Transaction * _Nullable transaction;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 
@@ -272,9 +274,12 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK8CardInfo")
 @property (nonatomic, copy) NSString * _Nullable expiryMonth;
 @property (nonatomic, copy) NSString * _Nullable expiryYear;
 @property (nonatomic, copy) NSString * _Nullable cardHash;
+@property (nonatomic, copy) NSString * _Nullable cardDataToken;
 @property (nonatomic, copy) NSString * _Nullable cardBrand;
 @property (nonatomic, copy) NSString * _Nullable maskedCard;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@property (nonatomic, copy) NSString * _Nullable ccvToken;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 @class ValidationResult;
@@ -398,7 +403,8 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK18KashierUITextField")
 SWIFT_CLASS("_TtC17KashierPaymentSDK8Merchant")
 @interface Merchant : NSObject
 @property (nonatomic, copy) NSString * _Nullable merchantRedirectURL;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 
@@ -435,28 +441,36 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK6P_Body")
 
 SWIFT_CLASS("_TtC17KashierPaymentSDK6P_Card")
 @interface P_Card : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@property (nonatomic, copy) NSString * _Nullable result;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 
 SWIFT_CLASS("_TtC17KashierPaymentSDK7P_Error")
 @interface P_Error : NSObject
-@property (nonatomic, readonly, copy) NSString * _Nullable cause;
-@property (nonatomic, readonly, copy) NSString * _Nullable explanation;
+@property (nonatomic, copy) NSString * _Nullable cause;
+@property (nonatomic, copy) NSString * _Nullable explanation;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 
 SWIFT_CLASS("_TtC17KashierPaymentSDK9P_Message")
 @interface P_Message : NSObject
-@property (nonatomic, readonly, strong) P_Messages * _Nullable messages;
-@property (nonatomic, readonly, copy) NSString * _Nullable status;
+@property (nonatomic, strong) P_Messages * _Nullable messages;
+@property (nonatomic, copy) NSString * _Nullable status;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 
 SWIFT_CLASS("_TtC17KashierPaymentSDK10P_Messages")
 @interface P_Messages : NSObject
-@property (nonatomic, readonly, copy) NSString * _Nullable en;
-@property (nonatomic, readonly, copy) NSString * _Nullable ar;
+@property (nonatomic, copy) NSString * _Nullable en;
+@property (nonatomic, copy) NSString * _Nullable ar;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 
@@ -541,6 +555,7 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK15PaymentResponse")
 @property (nonatomic, copy) NSString * _Nullable merchantID;
 @property (nonatomic, strong) ResponseCard * _Nullable card;
 @property (nonatomic, strong) SourceOfFunds * _Nullable sourceOfFunds;
+@property (nonatomic, strong) P_Error * _Nullable error;
 @end
 
 @class ProvidedCard;
@@ -548,18 +563,38 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK15PaymentResponse")
 SWIFT_CLASS("_TtC17KashierPaymentSDK8Provided")
 @interface Provided : NSObject
 @property (nonatomic, strong) ProvidedCard * _Nullable card;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-@class Transaction;
 
 SWIFT_CLASS("_TtC17KashierPaymentSDK12ProvidedCard")
 @interface ProvidedCard : NSObject
 @property (nonatomic, strong) CardCard * _Nullable card;
-@property (nonatomic, strong) Order * _Nullable cardInfo;
+@property (nonatomic, strong) CardInfo * _Nullable cardInfo;
 @property (nonatomic, strong) Card3DSecure * _Nullable the3DSecure;
 @property (nonatomic, strong) Transaction * _Nullable transaction;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC17KashierPaymentSDK8Response")
+@interface Response : NSObject
+@property (nonatomic, strong) SourceOfFunds * _Nullable sourceOfFunds;
+@property (nonatomic, copy) NSString * _Nullable orderReference;
+@property (nonatomic, copy) NSString * _Nullable orderID;
+@property (nonatomic, copy) NSString * _Nullable transactionID;
+@property (nonatomic, copy) NSString * _Nullable merchantOrderID;
+@property (nonatomic, copy) NSString * _Nullable creationDate;
+@property (nonatomic, copy) NSString * _Nullable providerType;
+@property (nonatomic, copy) NSString * _Nullable method;
+@property (nonatomic, copy) NSString * _Nullable apiKeyID;
+@property (nonatomic, copy) NSString * _Nullable refID;
+@property (nonatomic, copy) NSString * _Nullable merchantID;
+@property (nonatomic, strong) ResponseCard * _Nullable card;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 
@@ -567,16 +602,19 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK12ResponseCard")
 @interface ResponseCard : NSObject
 @property (nonatomic, strong) CardInfo * _Nullable cardInfo;
 @property (nonatomic, strong) Order * _Nullable order;
+@property (nonatomic) double amount;
 @property (nonatomic, copy) NSString * _Nullable currency;
 @property (nonatomic, copy) NSString * _Nullable result;
 @property (nonatomic, strong) Merchant * _Nullable merchant;
-@property (nonatomic, strong) Card3DSecure * _Nullable Card3DSecure;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@property (nonatomic, strong) Card3DSecure * _Nullable card3DSecure;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 
 SWIFT_CLASS("_TtC17KashierPaymentSDK14ResponseHelper")
 @interface ResponseHelper : NSObject
++ (enum KASHIER_RESPONSE_STATUS)getResponseStatusFromString:(NSString * _Nullable)status SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -585,7 +623,8 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK13SourceOfFunds")
 @interface SourceOfFunds : NSObject
 @property (nonatomic, strong) Provided * _Nullable provided;
 @property (nonatomic, copy) NSString * _Nullable type;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 
@@ -674,7 +713,8 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK14TokensResponse")
 
 SWIFT_CLASS("_TtC17KashierPaymentSDK11Transaction")
 @interface Transaction : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 typedef SWIFT_ENUM(NSInteger, VALIDATION_ERROR, closed) {
