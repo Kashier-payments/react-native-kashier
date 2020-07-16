@@ -243,6 +243,40 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK4Card")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+SWIFT_CLASS("_TtC17KashierPaymentSDK12Card3DSecure")
+@interface Card3DSecure : NSObject
+@property (nonatomic, copy) NSString * _Nullable acsURL;
+@property (nonatomic, copy) NSString * _Nullable paReq;
+@property (nonatomic, copy) NSString * _Nullable processACSRedirectURL;
+@property (nonatomic, copy) NSString * _Nullable requestType;
+@property (nonatomic, copy) NSString * _Nullable the3DSecureID;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class CardInfo;
+@class Order;
+
+SWIFT_CLASS("_TtC17KashierPaymentSDK8CardCard")
+@interface CardCard : NSObject
+@property (nonatomic, strong) Card3DSecure * _Nullable the3DSecure;
+@property (nonatomic, strong) CardInfo * _Nullable cardInfo;
+@property (nonatomic, strong) Order * _Nullable transaction;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC17KashierPaymentSDK8CardInfo")
+@interface CardInfo : NSObject
+@property (nonatomic, copy) NSString * _Nullable cardHolderName;
+@property (nonatomic, copy) NSString * _Nullable expiryMonth;
+@property (nonatomic, copy) NSString * _Nullable expiryYear;
+@property (nonatomic, copy) NSString * _Nullable cardHash;
+@property (nonatomic, copy) NSString * _Nullable cardBrand;
+@property (nonatomic, copy) NSString * _Nullable maskedCard;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class ValidationResult;
 
 SWIFT_CLASS("_TtC17KashierPaymentSDK20CardValidationResult")
@@ -327,6 +361,7 @@ typedef SWIFT_ENUM(NSInteger, KASHIER_TOKEN_VALIDITY, closed) {
   KASHIER_TOKEN_VALIDITYPERMANENT = 1,
 };
 
+@class PaymentCallback;
 @class TokensListCallback;
 @class TokenizationCallback;
 
@@ -337,8 +372,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) enum KASHIER_SDK_MOD
 + (void)initializeObjCWithMerchantId:(NSString * _Nonnull)merchantId apiKey:(NSString * _Nonnull)apiKey sdkMode:(enum KASHIER_SDK_MODE)sdkMode;
 + (void)initializeObjCWithMerchantId:(NSString * _Nonnull)merchantId apiKey:(NSString * _Nonnull)apiKey sdkMode:(enum KASHIER_SDK_MODE)sdkMode currency:(NSString * _Nonnull)currency;
 + (void)initializeObjCWithMerchantId:(NSString * _Nonnull)merchantId apiKey:(NSString * _Nonnull)apiKey sdkMode:(enum KASHIER_SDK_MODE)sdkMode currency:(NSString * _Nonnull)currency displayLang:(enum KASHIER_DISPLAY_LANG)displayLang;
++ (void)payWithPermTokenWithShopperReference:(NSString * _Nonnull)shopperReference orderId:(NSString * _Nonnull)orderId amount:(NSString * _Nonnull)amount cardToken:(NSString * _Nonnull)cardToken paymentCallback:(PaymentCallback * _Nonnull)paymentCallback;
++ (void)payWithTempTokenWithShopperReference:(NSString * _Nonnull)shopperReference orderId:(NSString * _Nonnull)orderId amount:(NSString * _Nonnull)amount cardToken:(NSString * _Nonnull)cardToken cvvToken:(NSString * _Nonnull)cvvToken paymentCallback:(PaymentCallback * _Nonnull)paymentCallback;
++ (void)payWithCardWithCardData:(Card * _Nonnull)cardData orderId:(NSString * _Nonnull)orderId amount:(NSString * _Nonnull)amount shopperReference:(NSString * _Nonnull)shopperReference shouldSaveCard:(BOOL)shouldSaveCard paymentCallback:(PaymentCallback * _Nonnull)paymentCallback;
 + (void)listShopperCardsWithShopperReference:(NSString * _Nonnull)shopperReference userCallBack:(TokensListCallback * _Nonnull)userCallBack;
 + (void)saveShopperCardWithCardData:(Card * _Nonnull)cardData shopperReference:(NSString * _Nonnull)shopperReference tokenValidity:(enum KASHIER_TOKEN_VALIDITY)tokenValidity tokenizationCallback:(TokenizationCallback * _Nonnull)tokenizationCallback;
++ (void)payUsingPaymentFormWithOrderId:(NSString * _Nonnull)orderId amount:(NSString * _Nonnull)amount shopperReference:(NSString * _Nonnull)shopperReference paymentCallback:(PaymentCallback * _Nonnull)paymentCallback customXibFile:(NSString * _Nullable)customXibFile;
 + (NSString * _Nonnull)getString SWIFT_WARN_UNUSED_RESULT;
 + (NSString * _Nonnull)getStringWithParamWithStr:(NSString * _Nonnull)myStr SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -356,6 +395,19 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK18KashierUITextField")
 
 
 
+SWIFT_CLASS("_TtC17KashierPaymentSDK8Merchant")
+@interface Merchant : NSObject
+@property (nonatomic, copy) NSString * _Nullable merchantRedirectURL;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+SWIFT_CLASS("_TtC17KashierPaymentSDK5Order")
+@interface Order : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 @class WKUserContentController;
 @class WKScriptMessage;
@@ -437,6 +489,17 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK12PaddingLabel")
 SWIFT_CLASS("_TtC17KashierPaymentSDK7Payment")
 @interface Payment : GenericResponse
 @property (nonatomic, strong) PaymentResponse * _Nullable response;
+- (Card3DSecure * _Nullable)get3DSData SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS("_TtC17KashierPaymentSDK15PaymentCallback")
+@interface PaymentCallback : NSObject
+@property (nonatomic, copy) void (^ _Nonnull onResponse)(Payment * _Nonnull);
+- (nonnull instancetype)initOnResponse:(void (^ _Nonnull)(Payment * _Nonnull))onResponse onFailure:(void (^ _Nonnull)(ErrorData * _Nonnull))onFailure OBJC_DESIGNATED_INITIALIZER;
+@property (nonatomic, copy) void (^ _Nonnull onFailure)(ErrorData * _Nonnull);
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 @class UIButton;
@@ -461,6 +524,8 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK25PaymentFormViewController")
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
+@class ResponseCard;
+@class SourceOfFunds;
 
 SWIFT_CLASS("_TtC17KashierPaymentSDK15PaymentResponse")
 @interface PaymentResponse : P_Response
@@ -474,11 +539,52 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK15PaymentResponse")
 @property (nonatomic, copy) NSString * _Nullable apiKeyID;
 @property (nonatomic, copy) NSString * _Nullable refID;
 @property (nonatomic, copy) NSString * _Nullable merchantID;
+@property (nonatomic, strong) ResponseCard * _Nullable card;
+@property (nonatomic, strong) SourceOfFunds * _Nullable sourceOfFunds;
+@end
+
+@class ProvidedCard;
+
+SWIFT_CLASS("_TtC17KashierPaymentSDK8Provided")
+@interface Provided : NSObject
+@property (nonatomic, strong) ProvidedCard * _Nullable card;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class Transaction;
+
+SWIFT_CLASS("_TtC17KashierPaymentSDK12ProvidedCard")
+@interface ProvidedCard : NSObject
+@property (nonatomic, strong) CardCard * _Nullable card;
+@property (nonatomic, strong) Order * _Nullable cardInfo;
+@property (nonatomic, strong) Card3DSecure * _Nullable the3DSecure;
+@property (nonatomic, strong) Transaction * _Nullable transaction;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC17KashierPaymentSDK12ResponseCard")
+@interface ResponseCard : NSObject
+@property (nonatomic, strong) CardInfo * _Nullable cardInfo;
+@property (nonatomic, strong) Order * _Nullable order;
+@property (nonatomic, copy) NSString * _Nullable currency;
+@property (nonatomic, copy) NSString * _Nullable result;
+@property (nonatomic, strong) Merchant * _Nullable merchant;
+@property (nonatomic, strong) Card3DSecure * _Nullable Card3DSecure;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
 SWIFT_CLASS("_TtC17KashierPaymentSDK14ResponseHelper")
 @interface ResponseHelper : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC17KashierPaymentSDK13SourceOfFunds")
+@interface SourceOfFunds : NSObject
+@property (nonatomic, strong) Provided * _Nullable provided;
+@property (nonatomic, copy) NSString * _Nullable type;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -563,6 +669,12 @@ SWIFT_CLASS("_TtC17KashierPaymentSDK18TokensListCallback")
 SWIFT_CLASS("_TtC17KashierPaymentSDK14TokensResponse")
 @interface TokensResponse : P_Response
 @property (nonatomic, copy) NSArray<Token *> * _Nullable tokens;
+@end
+
+
+SWIFT_CLASS("_TtC17KashierPaymentSDK11Transaction")
+@interface Transaction : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 typedef SWIFT_ENUM(NSInteger, VALIDATION_ERROR, closed) {

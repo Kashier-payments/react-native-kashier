@@ -16,7 +16,8 @@ const payUsingCard = (
   successCallback: (result: PaymentResponse) => {},
   errorCallback: (error: KashierError) => {}
 ) => {
-  Platform.select({
+  // @ts-ignore
+  (Platform.select({
     android: (() => {
       Kashier.payUsingCard(
         cardData,
@@ -31,8 +32,24 @@ const payUsingCard = (
           errorCallback(err);
         }
       );
-    })()
-  });
+    }),
+    ios: (() => {
+      Kashier.payUsingCard(
+          cardData,
+          String(shopperReference),
+          String(orderId),
+          String(amount),
+          Boolean(shouldSaveCard),
+          (error: KashierError,result: PaymentResponse): any => {
+            if(error){
+              errorCallback(error);
+            }else{
+              successCallback(result)
+            }
+          }
+      );
+    })
+  }))();
 };
 
 const payUsingPermToken = (
@@ -43,7 +60,8 @@ const payUsingPermToken = (
   successCallback: (result: PaymentResponse) => {},
   errorCallback: (error: KashierError) => {}
 ) => {
-  Platform.select({
+  // @ts-ignore
+  (Platform.select({
     android: (() => {
       Kashier.payUsingPermToken(
         String(shopperReference),
@@ -57,8 +75,23 @@ const payUsingPermToken = (
           errorCallback(err);
         }
       );
-    })()
-  });
+    }),
+    ios: (() => {
+      Kashier.payUsingPermToken(
+          String(shopperReference),
+          String(orderId),
+          String(amount),
+          cardToken,
+          (error: KashierError,result: PaymentResponse): any => {
+            if(error){
+              errorCallback(error);
+            }else{
+              successCallback(result)
+            }
+          }
+      );
+    })
+  }))();
 };
 const payUsingTempToken = (
   shopperReference: string,
@@ -69,7 +102,8 @@ const payUsingTempToken = (
   successCallback: (result: PaymentResponse) => {},
   errorCallback: (error: KashierError) => {}
 ) => {
-  Platform.select({
+  // @ts-ignore
+  (Platform.select({
     android: (() => {
       Kashier.payUsingTempToken(
         String(shopperReference),
@@ -84,8 +118,24 @@ const payUsingTempToken = (
           errorCallback(err);
         }
       );
-    })()
-  });
+    }),
+    ios: (() => {
+      Kashier.payUsingTempToken(
+          String(shopperReference),
+          String(orderId),
+          String(amount),
+          cardToken,
+          cvvToken,
+          (error: KashierError,result: PaymentResponse): any => {
+            if(error){
+              errorCallback(error);
+            }else{
+              successCallback(result);
+            }
+          }
+      );
+    }),
+  }))();
 };
 
 const payUsingPaymentForm = (
@@ -95,7 +145,8 @@ const payUsingPaymentForm = (
   successCallback: (result: PaymentResponse) => {},
   errorCallback: (error: KashierError) => {}
 ) => {
-  Platform.select({
+  // @ts-ignore
+  (Platform.select({
     android: (() => {
       Kashier.payUsingPaymentForm(
         String(shopperReference),
@@ -108,8 +159,22 @@ const payUsingPaymentForm = (
           errorCallback(err);
         }
       );
-    })()
-  });
+    }),
+    ios: (() => {
+      Kashier.payUsingPaymentForm(
+          String(shopperReference),
+          String(orderId),
+          String(amount),
+          (error: KashierError,result: PaymentResponse): any => {
+            if(error){
+              errorCallback(error);
+            }else{
+              successCallback(result);
+            }
+          }
+      );
+    })
+  }))();
 };
 
 export {
