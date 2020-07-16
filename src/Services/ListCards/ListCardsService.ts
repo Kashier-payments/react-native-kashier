@@ -2,10 +2,8 @@ import {KashierError} from "Model/KashierError";
 import {NativeModules, Platform} from "react-native";
 import {ListCardsResponse} from "Services/ListCards/ListCardsResponse";
 
-const Kashier = Platform.select({
-    android: NativeModules?.Kashier,
-    ios: NativeModules?.KashierRCT
-});
+const { KashierRCT } = NativeModules;
+
 
 const listCards = (
     shopperReference: string,
@@ -15,7 +13,7 @@ const listCards = (
     // @ts-ignore
     (Platform.select({
         android: () => {
-            Kashier.listCards(
+            KashierRCT.listCards(
                 shopperReference,
                 (result: ListCardsResponse): any => {
                     successCallback(result);
@@ -26,7 +24,7 @@ const listCards = (
             );
         },
         ios: () => {
-            Kashier.listCards(
+            KashierRCT.listCards(
                 shopperReference,
                 (error:KashierError,success:ListCardsResponse): any => {
                     if(error){

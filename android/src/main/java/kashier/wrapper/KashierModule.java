@@ -40,7 +40,7 @@ public class KashierModule extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-        return "Kashier";
+        return "KashierRCT";
     }
 
 //

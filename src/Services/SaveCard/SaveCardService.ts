@@ -3,10 +3,8 @@ import {NativeModules, Platform} from "react-native";
 import {Card} from "../../Model/Card";
 import {SaveCardResponse} from "Services/SaveCard/SaveCardResponse";
 
-const Kashier = Platform.select({
-    android: NativeModules?.Kashier,
-    ios: NativeModules?.KashierRCT
-});
+const { KashierRCT } = NativeModules;
+
 type tokenValidity = "temp" | "perm";
 
 const saveCard = (
@@ -19,7 +17,7 @@ const saveCard = (
     // @ts-ignore
     (Platform.select({
         android: (() => {
-            Kashier.saveCard(
+            KashierRCT.saveCard(
                 cardData,
                 shopperReference,
                 tokenValidity,
@@ -32,7 +30,7 @@ const saveCard = (
             );
         }),
         ios: (() => {
-            Kashier.saveCard(
+            KashierRCT.saveCard(
                 cardData,
                 shopperReference,
                 tokenValidity,

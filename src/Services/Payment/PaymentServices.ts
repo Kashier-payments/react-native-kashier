@@ -2,10 +2,8 @@ import { Card } from "Model/Card";
 import { KashierError } from "Model/KashierError";
 import { NativeModules, Platform } from "react-native";
 
-const Kashier = Platform.select({
-  android: NativeModules?.Kashier,
-  ios: NativeModules?.KashierRCT
-});
+const { KashierRCT } = NativeModules;
+
 
 const payUsingCard = (
   cardData: Card,
@@ -19,7 +17,7 @@ const payUsingCard = (
   // @ts-ignore
   (Platform.select({
     android: (() => {
-      Kashier.payUsingCard(
+      KashierRCT.payUsingCard(
         cardData,
         String(shopperReference),
         String(orderId),
@@ -34,7 +32,7 @@ const payUsingCard = (
       );
     }),
     ios: (() => {
-      Kashier.payUsingCard(
+      KashierRCT.payUsingCard(
           cardData,
           String(shopperReference),
           String(orderId),
@@ -63,7 +61,7 @@ const payUsingPermToken = (
   // @ts-ignore
   (Platform.select({
     android: (() => {
-      Kashier.payUsingPermToken(
+      KashierRCT.payUsingPermToken(
         String(shopperReference),
         String(orderId),
         String(amount),
@@ -77,7 +75,7 @@ const payUsingPermToken = (
       );
     }),
     ios: (() => {
-      Kashier.payUsingPermToken(
+      KashierRCT.payUsingPermToken(
           String(shopperReference),
           String(orderId),
           String(amount),
@@ -105,7 +103,7 @@ const payUsingTempToken = (
   // @ts-ignore
   (Platform.select({
     android: (() => {
-      Kashier.payUsingTempToken(
+      KashierRCT.payUsingTempToken(
         String(shopperReference),
         String(orderId),
         String(amount),
@@ -120,7 +118,7 @@ const payUsingTempToken = (
       );
     }),
     ios: (() => {
-      Kashier.payUsingTempToken(
+      KashierRCT.payUsingTempToken(
           String(shopperReference),
           String(orderId),
           String(amount),
@@ -148,7 +146,7 @@ const payUsingPaymentForm = (
   // @ts-ignore
   (Platform.select({
     android: (() => {
-      Kashier.payUsingPaymentForm(
+      KashierRCT.payUsingPaymentForm(
         String(shopperReference),
         String(orderId),
         String(amount),
@@ -161,7 +159,7 @@ const payUsingPaymentForm = (
       );
     }),
     ios: (() => {
-      Kashier.payUsingPaymentForm(
+      KashierRCT.payUsingPaymentForm(
           String(shopperReference),
           String(orderId),
           String(amount),
