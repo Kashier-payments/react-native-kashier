@@ -1,9 +1,7 @@
 ![](https://raw.githubusercontent.com/Kashier-payments/kashier-prestashop-1.6/master/kashier-logo.png)
 
 ## Kashier React Native SDK
-Easily integrate your react native app with our Native SDk
-
-**NOTE: Currently Android is supported, iOS is coming soon**
+Easily integrate your react native app with our Native SDK
 
 
 [Kashier](https://kashier.io/) is a payments platform built to empower
@@ -66,7 +64,7 @@ To get those 2 items:
 - Add it to your root directory of your project
 - Add the following line to your "dependencies" section in your package.json file
 ```
- "react-native-kashier": "file:react-native-kashier-1.0.1.tgz"
+ "react-native-kashier": "file:react-native-kashier-1.0.3.tgz"
  ```
 
  Run
