@@ -13,6 +13,7 @@ run your business.
 - [Prerequisites](#Prerequisites)
 - [API Documentation](https://test-api.kashier.io/api-docs/#/)
 - [Plugin Installation](#Plugin-Installation)
+- [Plugin Upgrade](#Plugin-Upgrade)
 - [Getting Started](#Getting-Started)
 - [Save Shopper Card](#Save-Shopper-Card)
 - [List Shopper Card](#List-Shopper-Card)
@@ -60,11 +61,11 @@ To get those 2 items:
 
 ## Plugin Installation
 
-- Get the latest .tar.gz from our [releases](https://github.com/Kashier-payments/react-native-kashier/releases) page
+- Get the latest .tgz from our [releases](https://github.com/Kashier-payments/react-native-kashier/releases) page
 - Add it to your root directory of your project
-- Add the following line to your "dependencies" section in your package.json file
+- Add the following line to your "dependencies" section in your package.json, make sure you use the correct file name with new version.
 ```
- "react-native-kashier": "file:react-native-kashier-1.0.3.tgz"
+ "react-native-kashier": "file:react-native-kashier-X.X.X.tgz"
  ```
 
  Run
@@ -76,10 +77,33 @@ or
 yarn install
 ```
 
+for ios
+```
+cd ios && pod install
+```
+
 After installation, the functions should be available with importing **Kashier**
 ```ts
 import {Kashier} from 'react-native-kashier';
 ```
+
+## Plugin Upgrade
+If you're installing the plugin for the first time, you can skip this section.
+
+In order to upgrade your existing installation of plugin, the following steps are recommended:
+- Get the latest release from [releases](https://github.com/Kashier-payments/react-native-kashier/releases) page.
+- Add the downloaded file to the root directory of your project.
+- Update the entry in package.json with the new file name
+- run the commands below
+
+```
+rm -rd node_modules
+rm yarn.lock package-lock.json
+npm install
+cd ios && pod install
+```
+Note: Yarn may not work as expected in the upgrade, and may use cached/previously installed version. npm works fine.
+
 
 
 ## Initialization
