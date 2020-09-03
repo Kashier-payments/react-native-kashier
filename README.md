@@ -60,7 +60,7 @@ To get those 2 items:
 
 ## Plugin Installation
 
-- Get the latest .tar.gz from our [releases](https://github.com/Kashier-payments/react-native-kashier/releases) page
+- Get the latest .tgz from our [releases](https://github.com/Kashier-payments/react-native-kashier/releases) page
 - Add it to your root directory of your project
 - Add the following line to your "dependencies" section in your package.json file
 ```
