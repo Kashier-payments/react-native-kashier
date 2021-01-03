@@ -77,7 +77,7 @@ or
 yarn install
 ```
 
-for ios
+for ios (Make sure you're cocoapods version is 1.9.3)
 ```
 cd ios && pod install
 ```
