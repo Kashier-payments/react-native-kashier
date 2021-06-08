@@ -1,11 +1,16 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.2.4 (swiftlang-1103.0.32.9 clang-1103.0.32.53)
+// swift-compiler-version: Apple Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
 // swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name KashierPaymentSDK
 import Foundation
 @_exported import KashierPaymentSDK
 import Swift
 import UIKit
 import WebKit
+@objc @_hasMissingDesignatedInitializers public class CardsListViewController : UIKit.UIViewController {
+  @objc override dynamic public func viewDidLoad()
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc deinit
+}
 @objc @objcMembers public class P_Body : ObjectiveC.NSObject, Swift.Codable {
   @objc public var messages: KashierPaymentSDK.P_Messages? {
     get
@@ -14,8 +19,8 @@ import WebKit
     get
   }
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @objc @objcMembers public class GenericResponse : ObjectiveC.NSObject, KashierPaymentSDK.P_GenericResponse {
@@ -25,8 +30,8 @@ import WebKit
   @objc public var error: KashierPaymentSDK.P_Error?
   @objc public var status: Swift.String
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @objc @objcMembers public class P_Message : ObjectiveC.NSObject, Swift.Codable {
@@ -37,8 +42,8 @@ import WebKit
     get
   }
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class TokenizationResponse : KashierPaymentSDK.GenericResponse {
@@ -55,16 +60,16 @@ import WebKit
   @objc override dynamic public var intrinsicContentSize: CoreGraphics.CGSize {
     @objc get
   }
-  @objc deinit
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
   @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
 }
 @objc @objcMembers public class CardInfo : ObjectiveC.NSObject, Swift.Codable {
   @objc public var cardHolderName: Swift.String?, expiryMonth: Swift.String?, expiryYear: Swift.String?, cardHash: Swift.String?, cardDataToken: Swift.String?
   @objc public var cardBrand: Swift.String?, maskedCard: Swift.String?, ccvToken: Swift.String?
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class TokensResponse : KashierPaymentSDK.P_Response {
@@ -83,10 +88,18 @@ import WebKit
   public static var currency: Swift.String {
     get
   }
+  public static var connectedAccount: KashierPaymentSDK.Connected_Accounts {
+    get
+  }
+  public static var kashierTheme: KashierPaymentSDK.KashierTheme? {
+    get
+  }
+  @objc public static func setKashierTheme(_ theme: KashierPaymentSDK.KashierTheme)
+  @objc public static func setConnectedAccount(_ connectedAccountData: KashierPaymentSDK.Connected_Accounts)
   @objc public class func initializeObjC(merchantId: Swift.String, apiKey: Swift.String, sdkMode: KashierPaymentSDK.KASHIER_SDK_MODE)
-  @objc public class func initializeObjC(merchantId: Swift.String, apiKey: Swift.String, sdkMode: KashierPaymentSDK.KASHIER_SDK_MODE, currency: Swift.String)
-  @objc public class func initializeObjC(merchantId: Swift.String, apiKey: Swift.String, sdkMode: KashierPaymentSDK.KASHIER_SDK_MODE, currency: Swift.String, displayLang: KashierPaymentSDK.KASHIER_DISPLAY_LANG)
-  public class func initialize(merchantId: Swift.String, apiKey: Swift.String, sdkMode: KashierPaymentSDK.KASHIER_SDK_MODE, currency: Swift.String? = "EGP", displayLang: KashierPaymentSDK.KASHIER_DISPLAY_LANG? = KASHIER_DISPLAY_LANG.EN)
+  @objc public class func initializeObjC(merchantId: Swift.String, apiKey: Swift.String, secretKey: Swift.String, sdkMode: KashierPaymentSDK.KASHIER_SDK_MODE, currency: Swift.String)
+  @objc public class func initializeObjC(merchantId: Swift.String, apiKey: Swift.String, sdkMode: KashierPaymentSDK.KASHIER_SDK_MODE, secretKey: Swift.String, currency: Swift.String, displayLang: KashierPaymentSDK.KASHIER_DISPLAY_LANG)
+  public class func initialize(merchantId: Swift.String, apiKey: Swift.String, sdkMode: KashierPaymentSDK.KASHIER_SDK_MODE, secretKey: Swift.String? = "", currency: Swift.String? = "EGP", displayLang: KashierPaymentSDK.KASHIER_DISPLAY_LANG? = KASHIER_DISPLAY_LANG.EN)
   @objc public static func payWithPermToken(shopperReference: Swift.String, orderId: Swift.String, amount: Swift.String, cardToken: Swift.String, paymentCallback: KashierPaymentSDK.PaymentCallback)
   @objc public static func payWithTempToken(shopperReference: Swift.String, orderId: Swift.String, amount: Swift.String, cardToken: Swift.String, cvvToken: Swift.String, paymentCallback: KashierPaymentSDK.PaymentCallback)
   @objc public static func payWithCard(cardData: KashierPaymentSDK.Card, orderId: Swift.String, amount: Swift.String, shopperReference: Swift.String, shouldSaveCard: Swift.Bool, paymentCallback: KashierPaymentSDK.PaymentCallback)
@@ -94,10 +107,12 @@ import WebKit
   @objc public static func listShopperCards(shopperReference: Swift.String, userCallBack: KashierPaymentSDK.TokensListCallback)
   @objc public static func saveShopperCard(cardData: KashierPaymentSDK.Card, shopperReference: Swift.String, tokenValidity: KashierPaymentSDK.KASHIER_TOKEN_VALIDITY, tokenizationCallback: KashierPaymentSDK.TokenizationCallback)
   @objc public static func payUsingPaymentForm(orderId: Swift.String, amount: Swift.String, shopperReference: Swift.String, paymentCallback: KashierPaymentSDK.PaymentCallback, customXibFile: Swift.String? = nil)
+  @objc public static func listShopperCardsUI(shopperReference: Swift.String)
+  @objc public static func getOrderDetails(orderId: Swift.String, shopperReference: Swift.String?, orderDetailsCallback: KashierPaymentSDK.OrderDetailsCallback)
   @objc public static func getString() -> Swift.String
   @objc public static func getStringWithParam(str myStr: Swift.String) -> Swift.String
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
 }
 @objc @objcMembers public class Response : ObjectiveC.NSObject, Swift.Codable {
   @objc public var sourceOfFunds: KashierPaymentSDK.SourceOfFunds? {
@@ -109,9 +124,23 @@ import WebKit
   @objc public var card: KashierPaymentSDK.ResponseCard? {
     get
   }
+  @objc public var platform: KashierPaymentSDK.P_Platform? {
+    get
+  }
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc @objcMembers public class OrderDetails_transaction : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var currency: Swift.String?, status: Swift.String?, transactionId: Swift.String?, operation: Swift.String?, _id: Swift.String?, requestDate: Swift.String?, responseDate: Swift.String?
+  public var feeTrxAmount: Swift.Float?, amount: Swift.Float?
+  public var isPF: Swift.Bool? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 public protocol P_GenericResponse : ObjectiveC.NSObject, Swift.Decodable, Swift.Encodable {
@@ -149,8 +178,8 @@ extension P_GenericResponse {
   @objc public init(cardHolderName: Swift.String, cardNumber: Swift.String, cardCcv: Swift.String, cardExpiryMonth: Swift.String, cardExpiryYear: Swift.String)
   @objc public init(cardHolderName: Swift.String, cardNumber: Swift.String, cardCcv: Swift.String, cardExpiryDate: Swift.String)
   @objc public static func getCardParsingError() -> KashierPaymentSDK.ErrorData
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
 }
 @objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class PaymentResponse : KashierPaymentSDK.P_Response {
   @objc public var orderReference: Swift.String?, orderID: Swift.String?, transactionID: Swift.String?, merchantOrderID: Swift.String?
@@ -165,12 +194,15 @@ extension P_GenericResponse {
   @objc public var error: KashierPaymentSDK.P_Error? {
     get
   }
+  @objc public var platform: KashierPaymentSDK.P_Platform? {
+    get
+  }
   @objc deinit
 }
 @objc @_hasMissingDesignatedInitializers public class PaymentFormViewController : UIKit.UIViewController {
   @objc override dynamic public func viewDidLoad()
-  @objc deinit
   @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc deinit
 }
 @objc @objcMembers public class CardCard : ObjectiveC.NSObject, Swift.Codable {
   @objc public var the3DSecure: KashierPaymentSDK.Card3DSecure? {
@@ -183,8 +215,8 @@ extension P_GenericResponse {
     get
   }
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @_hasMissingDesignatedInitializers public class CardType {
@@ -196,6 +228,17 @@ extension P_GenericResponse {
   }
   @objc deinit
 }
+@objc @objcMembers public class Connected_Accounts : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var mid: Swift.String {
+    get
+  }
+  @objc public init(mid: Swift.String)
+  @objc public func toDictionary() -> [Swift.String : Swift.String]
+  @objc override dynamic public init()
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
 @objc @objcMembers public class SourceOfFunds : ObjectiveC.NSObject, Swift.Codable {
   @objc public var provided: KashierPaymentSDK.Provided? {
     get
@@ -204,23 +247,23 @@ extension P_GenericResponse {
     get
   }
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @objc @_inheritsConvenienceInitializers @objcMembers public class Order : ObjectiveC.NSObject, Swift.Codable {
-  @objc deinit
   @objc override dynamic public init()
-  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
 }
 @objc @objcMembers public class P_Card : ObjectiveC.NSObject, Swift.Codable {
   @objc public var result: Swift.String? {
     get
   }
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @objc public enum KASHIER_DISPLAY_LANG : Swift.Int, Swift.RawRepresentable {
@@ -244,16 +287,16 @@ extension P_GenericResponse {
 @objc public enum KASHIER_SDK_MODE : Swift.Int {
   case DEVELOPMENT
   case PRODUCTION
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
 }
 @objc public enum KASHIER_RESPONSE_STATUS : Swift.Int {
   case NO_VALUE, UNKNOWN, SUCCESS, FAILURE, INVALID_REQUEST, PENDING, PENDING_ACTION
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
@@ -272,8 +315,8 @@ extension P_GenericResponse {
     get
   }
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class Payment : KashierPaymentSDK.GenericResponse {
@@ -286,9 +329,16 @@ extension P_GenericResponse {
 @objc @_inheritsConvenienceInitializers @objcMembers public class TokenizationBodyResponse : ObjectiveC.NSObject, Swift.Codable {
   @objc public var cardToken: Swift.String?, ccvToken: Swift.String?, cardHolderName: Swift.String?, maskedCard: Swift.String?
   @objc public var expiryMonth: Swift.String?, expiryYear: Swift.String?
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
   required public init(from decoder: Swift.Decoder) throws
+}
+@objc @objcMembers public class OrderDetails_order : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var amount: Swift.String?, currency: Swift.String?, callbackURL: Swift.String?
+  required public init(from decoder: Swift.Decoder) throws
+  @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @_hasMissingDesignatedInitializers public class ValidationHelper {
@@ -306,9 +356,32 @@ extension P_GenericResponse {
     get
   }
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class OrderDetails : KashierPaymentSDK.GenericResponse {
+  @objc public var orderDetailsResponse: KashierPaymentSDK.OrderDetailsResponse? {
+    get
+  }
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class OrderDetailsResponse : KashierPaymentSDK.P_Response {
+  @objc public var _id: Swift.String?, merchantId: Swift.String?, orderId: Swift.String?, merchantOrderId: Swift.String?, totalAuthorizedAmount: Swift.String?, method: Swift.String?, apiKeyId: Swift.String?, apiServiceName: Swift.String?, paymentOrigin: Swift.String?, paymentChannel: Swift.String?, provider: Swift.String?, lastModifiedDate: Swift.String?, date: Swift.String?
+  public var totalRefundedAmount: Swift.Float?, totalCapturedAmount: Swift.Float?
+  @objc public var sourceOfFunds: KashierPaymentSDK.OrderDetailsSourceOfFunds? {
+    get
+  }
+  @objc public var merchantDetails: KashierPaymentSDK.OrderDetails_merchantDetails? {
+    get
+  }
+  @objc public var order: KashierPaymentSDK.OrderDetails_order? {
+    get
+  }
+  @objc public var transactions: [KashierPaymentSDK.OrderDetails_transaction]? {
+    get
+  }
+  @objc deinit
 }
 @_hasMissingDesignatedInitializers public class CardValidator {
   @objc deinit
@@ -318,8 +391,8 @@ extension P_GenericResponse {
     get
   }
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @objc @_inheritsConvenienceInitializers @objcMembers public class Token : ObjectiveC.NSObject, Swift.Codable {
@@ -331,10 +404,10 @@ extension P_GenericResponse {
   @objc public var cardImage: UIKit.UIImage? {
     get
   }
-  @objc deinit
   @objc override dynamic public init()
-  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
 }
 @objc @objcMembers public class ResponseCard : ObjectiveC.NSObject, Swift.Codable {
   @objc public var cardInfo: KashierPaymentSDK.CardInfo? {
@@ -354,8 +427,8 @@ extension P_GenericResponse {
     get
   }
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @objc @objcMembers public class TokensListCallback : ObjectiveC.NSObject, KashierPaymentSDK.UserCallback {
@@ -363,8 +436,20 @@ extension P_GenericResponse {
   @objc public var onResponse: (KashierPaymentSDK.TokensListCallback.T) -> (Swift.Void)
   @objc public init(onResponse: @escaping (KashierPaymentSDK.TokensListCallback.T) -> (Swift.Void), onFailure: @escaping (KashierPaymentSDK.ErrorData) -> (Swift.Void))
   @objc public var onFailure: (KashierPaymentSDK.ErrorData) -> (Swift.Void)
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
+}
+@objc @objcMembers public class P_Platform : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var mid: Swift.String? {
+    get
+  }
+  @objc public var storeName: Swift.String? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc override dynamic public init()
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
 }
 @objc @_hasMissingDesignatedInitializers @objcMembers public class ValidationResult : ObjectiveC.NSObject {
   @objc public var validationField: KashierPaymentSDK.VALIDATION_FIELD {
@@ -386,8 +471,8 @@ extension P_GenericResponse {
   @objc public func textFieldDidEndEditing(_ textField: UIKit.UITextField)
   @objc override dynamic public func viewDidLoad()
   @objc dynamic public init()
-  @objc deinit
   @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc deinit
 }
 @objc @objcMembers public class Card3DSecure : ObjectiveC.NSObject, Swift.Codable {
   @objc public var acsURL: Swift.String? {
@@ -406,14 +491,14 @@ extension P_GenericResponse {
     get
   }
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @objc public enum VALIDATION_ERROR : Swift.Int {
-  case NO_ERROR, CARD_HOLDER_NAME_REQUIRED, CARD_HOLDER_NAME_INVALID, CVV_REQUIRED, CVV_INVALID, EXPIRY_DATE_REQUIRED, EXPIRY_DATE_INVALID, CARD_NUMBER_REQUIRED, CARD_NUMBER_INVALID, CARD_NOT_SUPPORTED, SHOPPER_REFERENCE_REQUIRED, TOKEN_VALIDITY_REQUIRED, ORDER_ID_REQUIRED, AMOUNT_REQUIRED, AMOUNT_INVALID, CARD_TOKEN_REQUIRED, CVV_TOKEN_REQUIRED
-  public typealias RawValue = Swift.Int
+  case NO_ERROR, CARD_HOLDER_NAME_REQUIRED, CARD_HOLDER_NAME_INVALID, CVV_REQUIRED, CVV_INVALID, EXPIRY_DATE_REQUIRED, EXPIRY_DATE_INVALID, CARD_NUMBER_REQUIRED, CARD_NUMBER_INVALID, CARD_NOT_SUPPORTED, SHOPPER_REFERENCE_REQUIRED, TOKEN_VALIDITY_REQUIRED, ORDER_ID_REQUIRED, AMOUNT_REQUIRED, AMOUNT_INVALID, CARD_TOKEN_REQUIRED, CVV_TOKEN_REQUIRED, SECRET_KEY_REQUIRED
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
@@ -443,8 +528,8 @@ extension P_GenericResponse {
   }
   required public init(from decoder: Swift.Decoder) throws
   @objc override dynamic public init()
-  public func encode(to encoder: Swift.Encoder) throws
   @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
 }
 @objc @objcMembers public class PaymentCallback : ObjectiveC.NSObject, KashierPaymentSDK.UserCallback {
   public typealias T = KashierPaymentSDK.Payment
@@ -454,10 +539,23 @@ extension P_GenericResponse {
   @objc override dynamic public init()
   @objc deinit
 }
+@objc @objcMembers public class OrderDetailsCallback : ObjectiveC.NSObject, KashierPaymentSDK.UserCallback {
+  public typealias T = KashierPaymentSDK.OrderDetails
+  @objc public var onResponse: (KashierPaymentSDK.OrderDetailsCallback.T) -> (Swift.Void)
+  @objc public init(onResponse: @escaping (KashierPaymentSDK.OrderDetailsCallback.T) -> (Swift.Void), onFailure: @escaping (KashierPaymentSDK.ErrorData) -> (Swift.Void))
+  @objc public var onFailure: (KashierPaymentSDK.ErrorData) -> (Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class KashierThemedButton : UIKit.UIButton {
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
 @objc public enum ERROR_TYPE : Swift.Int {
   case NO_VALUE, INITIALIZATION, VALIDATION, DATA, EXCEPTION, NETWORK_ERROR, NETWORK_NO_INTERNET, NETWORK_TIMEOUT, NETWORK_UNAUTHENTICATED, NETWORK_CLIENT_ERROR, NETWORK_SERVER_ERROR, NETWORK_UNEXPECTED_ERROR, JSON_PARSING_ERROR
-  public typealias RawValue = Swift.Int
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
@@ -476,8 +574,26 @@ extension P_GenericResponse {
     get
   }
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc public protocol KashierTheme {
+  @objc var primaryColor: UIKit.UIColor { get set }
+  @objc var primaryColorVariant: UIKit.UIColor { get set }
+  @objc var secondaryColor: UIKit.UIColor { get set }
+  @objc func extend()
+}
+@objc @objcMembers public class OrderDetailsSourceOfFunds : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var cardInfo: KashierPaymentSDK.CardInfo? {
+    get
+  }
+  @objc public var threeDSecure: KashierPaymentSDK.Card3DSecure? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @objc @objcMembers public class P_Error : ObjectiveC.NSObject, Swift.Codable {
@@ -488,8 +604,8 @@ extension P_GenericResponse {
     get
   }
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class TokenizationBody : KashierPaymentSDK.P_Body {
@@ -503,8 +619,8 @@ extension P_GenericResponse {
     get
   }
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 @_inheritsConvenienceInitializers @objc public class ErrorData : ObjectiveC.NSObject {
@@ -543,6 +659,13 @@ extension P_GenericResponse {
   @objc public func getValidationErrorsMessage() -> Swift.String
   @objc deinit
 }
+@objc @objcMembers public class OrderDetails_merchantDetails : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var storeName: Swift.String?, merchantId: Swift.String?, businessIndustry: Swift.String?
+  required public init(from decoder: Swift.Decoder) throws
+  @objc override dynamic public init()
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+}
 public protocol UserCallback {
   associatedtype T
   var onResponse: (Self.T) -> (Swift.Void) { get }
@@ -556,15 +679,26 @@ public protocol UserCallback {
   @objc override dynamic public init()
   @objc deinit
 }
-@objc @_inheritsConvenienceInitializers public class KashierUITextField : UIKit.UITextField {
+extension UIWindow {
+  public func reload()
+}
+extension Array where Element == UIKit.UIWindow {
+  public func reload()
+}
+@_inheritsConvenienceInitializers @objc public class KashierThemeHelper : ObjectiveC.NSObject {
+  @objc public static func applyTheme(for application: UIKit.UIApplication, kashierTheme: KashierPaymentSDK.KashierTheme)
+  @objc override dynamic public init()
   @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class KashierUITextField : UIKit.UITextField {
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
   @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
 }
 @objc public enum VALIDATION_FIELD : Swift.Int {
-  case CARD_HOLDER_NAME, CARD_NUMBER, CARD_CVV, CARD_EXPIRY_DATE, SHOPPER_REFERENCE, TOKEN_VALIDITY, ORDER_ID, AMOUNT, CARD_TOKEN, CVV_TOKEN
-  public typealias RawValue = Swift.Int
+  case CARD_HOLDER_NAME, CARD_NUMBER, CARD_CVV, CARD_EXPIRY_DATE, SHOPPER_REFERENCE, TOKEN_VALIDITY, ORDER_ID, AMOUNT, CARD_TOKEN, CVV_TOKEN, SECRET_KEY
   public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
   }
