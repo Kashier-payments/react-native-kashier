@@ -4,6 +4,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 
 import io.kashier.sdk.Core.Helpers.ResponseHelper.ResponseHelper;
+import io.kashier.sdk.Core.model.Request.Payment.Connected_Accounts;
 import io.kashier.sdk.Core.model.Response.I_GenericResponse.I_GenericResponse;
 import io.kashier.sdk.Core.model.Response.I_GenericResponse.I_Messages;
 import io.kashier.sdk.Core.model.Response.Payment.Card;
@@ -12,6 +13,7 @@ import io.kashier.sdk.Core.model.Response.Payment.DSecure;
 import io.kashier.sdk.Core.model.Response.Payment.Merchant;
 import io.kashier.sdk.Core.model.Response.Payment.Messages;
 import io.kashier.sdk.Core.model.Response.Payment.PaymentResponse;
+import io.kashier.sdk.Core.model.Response.Payment.Platform;
 import retrofit2.Response;
 
 public class KashierPaymentResponseParser {
@@ -167,6 +169,18 @@ public class KashierPaymentResponseParser {
                     }
 
                     _payment_response.putMap("card", _responseCardMap);
+                }
+                if(_response.getPlatform() != null ) {
+                    Platform _connectedAccounts = _response.getPlatform();
+                    WritableMap _connectedAccountMap = new WritableNativeMap();
+
+                    if(_connectedAccounts.getMid() != null) {
+                        _connectedAccountMap.putString("mid", _connectedAccounts.getMid());
+                    }
+                    if(_connectedAccounts.getStoreName() != null) {
+                        _connectedAccountMap.putString("storeName", _connectedAccounts.getStoreName());
+                    }
+                    _payment_response.putMap("platform", _connectedAccountMap);
                 }
 
                 _paymentResponseMap.putMap("response", _payment_response);

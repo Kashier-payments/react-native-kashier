@@ -15,6 +15,7 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 
 import io.kashier.sdk.Core.model.Card.Card;
+import io.kashier.sdk.Core.model.Request.Payment.Connected_Accounts;
 import io.kashier.sdk.Core.model.Request.Tokenization.TOKEN_VALIDITY;
 import io.kashier.sdk.Core.model.Response.Error.ERROR_TYPE;
 import io.kashier.sdk.Core.model.Response.Error.ErrorData;
@@ -31,6 +32,7 @@ import retrofit2.Response;
 public class KashierModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
+    static Connected_Accounts connected_accounts = null;
 
 
     public KashierModule(ReactApplicationContext reactContext) {
@@ -85,10 +87,22 @@ public class KashierModule extends ReactContextBaseJavaModule {
                 _displayLanguage = KASHIER_DISPLAY_LANG.EN;
             }
         }
-        Kashier.init(this.reactContext, merchantId, apiKey, currency, _sdkMode, _displayLanguage);
+        Kashier.init(this.reactContext, merchantId, apiKey, currency, _sdkMode, String.valueOf(_displayLanguage));
         promise.resolve(true);
     }
 
+    @ReactMethod
+     public void setConnectedAccount(ReadableMap connectedAccount) {
+
+        Connected_Accounts _connectedAccountData = new Connected_Accounts("");
+        try {
+            _connectedAccountData = KashierConnectedAccountParser.connectedAccountParser(connectedAccount);
+        } catch (Exception ex) {
+//           invoke(KashierCardParser.handleParsingError(connectedAccount));
+            return;
+        }
+        Kashier.setConnectedAccount(_connectedAccountData);
+    }
 
     @ReactMethod
     public void listCards(
@@ -154,7 +168,6 @@ public class KashierModule extends ReactContextBaseJavaModule {
             }
         });
     }
-
 
     @ReactMethod
     public void payUsingCard(
