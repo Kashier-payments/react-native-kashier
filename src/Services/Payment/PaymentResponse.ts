@@ -1,4 +1,5 @@
 import { KashierResponseStatus } from "Model/KashierError";
+import { PlatformAndroidStatic } from "react-native";
 
 interface Error {
   cause: string;
@@ -36,6 +37,10 @@ interface card {
   merchant: Merchant;
   DSecure: DSecure;
 }
+interface platform {
+  mid: string;
+  storeName: string;
+}
 interface _response {
   method: string;
   orderId: string;
@@ -50,6 +55,7 @@ interface _response {
   status: string;
   error: string;
   card: card;
+  platform: platform;
 }
 interface PaymentResponse {
   response: _response;

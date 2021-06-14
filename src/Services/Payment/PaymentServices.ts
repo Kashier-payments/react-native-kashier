@@ -1,9 +1,23 @@
 import { Card } from "Model/Card";
 import { KashierError } from "Model/KashierError";
 import { NativeModules, Platform } from "react-native";
+import { ConnectedAccount } from "Model/ConnectedAccounts";
 
 const { KashierRCT } = NativeModules;
 
+
+const setConnectedAccount = (
+  connectedAccount: ConnectedAccount
+) => {
+  (Platform.select({
+    android: (() => {
+      KashierRCT.setConnectedAccount(connectedAccount)
+    }),
+    ios: (() => {
+      KashierRCT.setConnectedAccount(connectedAccount)
+    })
+  }))
+};
 
 const payUsingCard = (
   cardData: Card,
@@ -33,18 +47,18 @@ const payUsingCard = (
     }),
     ios: (() => {
       KashierRCT.payUsingCard(
-          cardData,
-          String(shopperReference),
-          String(orderId),
-          String(amount),
-          Boolean(shouldSaveCard),
-          (error: KashierError,result: PaymentResponse): any => {
-            if(error){
-              errorCallback(error);
-            }else{
-              successCallback(result)
-            }
+        cardData,
+        String(shopperReference),
+        String(orderId),
+        String(amount),
+        Boolean(shouldSaveCard),
+        (error: KashierError, result: PaymentResponse): any => {
+          if (error) {
+            errorCallback(error);
+          } else {
+            successCallback(result)
           }
+        }
       );
     })
   }))();
@@ -76,17 +90,17 @@ const payUsingPermToken = (
     }),
     ios: (() => {
       KashierRCT.payUsingPermToken(
-          String(shopperReference),
-          String(orderId),
-          String(amount),
-          cardToken,
-          (error: KashierError,result: PaymentResponse): any => {
-            if(error){
-              errorCallback(error);
-            }else{
-              successCallback(result)
-            }
+        String(shopperReference),
+        String(orderId),
+        String(amount),
+        cardToken,
+        (error: KashierError, result: PaymentResponse): any => {
+          if (error) {
+            errorCallback(error);
+          } else {
+            successCallback(result)
           }
+        }
       );
     })
   }))();
@@ -119,18 +133,18 @@ const payUsingTempToken = (
     }),
     ios: (() => {
       KashierRCT.payUsingTempToken(
-          String(shopperReference),
-          String(orderId),
-          String(amount),
-          cardToken,
-          cvvToken,
-          (error: KashierError,result: PaymentResponse): any => {
-            if(error){
-              errorCallback(error);
-            }else{
-              successCallback(result);
-            }
+        String(shopperReference),
+        String(orderId),
+        String(amount),
+        cardToken,
+        cvvToken,
+        (error: KashierError, result: PaymentResponse): any => {
+          if (error) {
+            errorCallback(error);
+          } else {
+            successCallback(result);
           }
+        }
       );
     }),
   }))();
@@ -160,16 +174,16 @@ const payUsingPaymentForm = (
     }),
     ios: (() => {
       KashierRCT.payUsingPaymentForm(
-          String(shopperReference),
-          String(orderId),
-          String(amount),
-          (error: KashierError,result: PaymentResponse): any => {
-            if(error){
-              errorCallback(error);
-            }else{
-              successCallback(result);
-            }
+        String(shopperReference),
+        String(orderId),
+        String(amount),
+        (error: KashierError, result: PaymentResponse): any => {
+          if (error) {
+            errorCallback(error);
+          } else {
+            successCallback(result);
           }
+        }
       );
     })
   }))();
@@ -179,5 +193,6 @@ export {
   payUsingCard,
   payUsingPermToken,
   payUsingTempToken,
-  payUsingPaymentForm
+  payUsingPaymentForm,
+  setConnectedAccount
 };

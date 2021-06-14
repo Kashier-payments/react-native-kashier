@@ -4,7 +4,8 @@ import {
   payUsingCard,
   payUsingPaymentForm,
   payUsingPermToken,
-  payUsingTempToken
+  payUsingTempToken,
+  setConnectedAccount
 } from "./Services/Payment/PaymentServices";
 
 const KashierServices = {
@@ -13,6 +14,7 @@ const KashierServices = {
   payUsingCard,
   payUsingPermToken,
   payUsingTempToken,
-  payUsingPaymentForm
+  payUsingPaymentForm,
+  setConnectedAccount
 };
 export { KashierServices };

@@ -1,7 +1,7 @@
 {
   "name": "react-native-kashier",
   "title": "React Native Kashier",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Kashier.io React Native module for integration with payment SDK",
   "main": "index.ts",
   "files": [
