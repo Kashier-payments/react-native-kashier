@@ -98,7 +98,6 @@ public class KashierModule extends ReactContextBaseJavaModule {
         try {
             _connectedAccountData = KashierConnectedAccountParser.connectedAccountParser(connectedAccount);
         } catch (Exception ex) {
-//           invoke(KashierCardParser.handleParsingError(connectedAccount));
             return;
         }
         Kashier.setConnectedAccount(_connectedAccountData);
