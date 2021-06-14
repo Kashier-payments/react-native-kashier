@@ -134,6 +134,13 @@ Kashier.initialize({
 | currency    | String        | We Support ISO currencies(EGP, USD, GBP, EUR)                  |
 | displayLang | "EN" , "AR" | To get the translated message from response |
 
+
+# Set Connected Accounts 
+use this Method to set your connected account
+```js
+Kashier.setConnectedAccount(Kashier.ConnectedAccount.setMid('MID-1917-44'));
+```
+
 # Save Shopper Card
 
 Use this API to save a user card (Create a token), for later usage as [Pay With Token](#Pay-With-Token)
