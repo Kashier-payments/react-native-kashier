@@ -9,14 +9,7 @@ const { KashierRCT } = NativeModules;
 const setConnectedAccount = (
   connectedAccount: ConnectedAccount
 ) => {
-  (Platform.select({
-    android: (() => {
-      KashierRCT.setConnectedAccount(connectedAccount)
-    }),
-    ios: (() => {
-      KashierRCT.setConnectedAccount(connectedAccount)
-    })
-  }))
+  KashierRCT.setConnectedAccount(connectedAccount)
 };
 
 const payUsingCard = (
