@@ -557,6 +557,11 @@ Card.fromExpiryMonth_Year(
   )
 ```
 
+###ConnectetAccount
+```ts
+ConnectedAccount.setMid(mid: String) //ex: "MID-XXX-XX"
+```
+
 ## Response Model
 
 ### SaveCardResponse
