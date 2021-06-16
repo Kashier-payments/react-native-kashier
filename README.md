@@ -138,8 +138,13 @@ Kashier.initialize({
 # Set Connected Accounts 
 use this Method to set your connected account
 ```js
-Kashier.setConnectedAccount(Kashier.ConnectedAccount.setMid('MID-1917-44'));
+Kashier.setConnectedAccount(ConnectedAccount.setMid('MID-XXXX-XX'));
 ```
+
+| Parameters       | Type                                           | Description                                                  |
+| ---------------- | ---------------------------------------------- | ------------------------------------------------------------ |
+| connectedAccount    | [CounnectedAccount](#ConnectedAccount)                                  | Connected Account Details                                          
+
 
 # Save Shopper Card
 
