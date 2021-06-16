@@ -562,7 +562,7 @@ Card.fromExpiryMonth_Year(
   )
 ```
 
-### ConnectetAccount
+### ConnectedAccount
 ```ts
 ConnectedAccount.setMid(mid: String) //ex: "MID-XXX-XX"
 ```
