@@ -127,6 +127,20 @@
 				}
 				[response setObject:_error forKey:@"error"];
 			}
+            
+            
+            if(paymentResponse.response.platform!=NULL){
+             P_Platform* _platform =paymentResponse.response.platform;
+             NSMutableDictionary* parsePlatform = [[NSMutableDictionary alloc]init];
+             if(_platform.mid!=NULL){
+                 [parsePlatform setObject:_platform.mid forKey:@"mid"];
+                 
+             }
+             if(_platform.storeName!=NULL){
+                 [parsePlatform setObject:_platform.storeName forKey:@"storeName"];
+             }
+             [response setObject:parsePlatform forKey:@"platform"];
+         }
 
 			if(paymentResponse.response.card!=NULL){
 				ResponseCard* _card = paymentResponse.response.card;
