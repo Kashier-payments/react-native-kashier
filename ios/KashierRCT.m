@@ -40,7 +40,8 @@ RCT_EXPORT_METHOD(initialize:(NSString *)merchantId
 	}else{
 		_displayLang = KASHIER_DISPLAY_LANGEN;
 	}
-	[Kashier initializeObjCWithMerchantId:merchantId apiKey:apiKey sdkMode:_sdkMode currency:currency displayLang:_displayLang];
+ [Kashier initializeObjCWithMerchantId:merchantId apiKey:apiKey sdkMode:_sdkMode];
+//	[Kashier initializeObjCWithMerchantId:merchantId apiKey:apiKey sdkMode:_sdkMode currency:currency displayLang:_displayLang];
 	resolve(NULL);
 }
 
@@ -103,6 +104,16 @@ RCT_EXPORT_METHOD(saveCard:(NSDictionary*)cardData
 		}]];
 	}
 }
+
+RCT_EXPORT_METHOD(setConnectedAccount:(NSDictionary*)connectedAccount)
+{
+    Connected_Accounts* connectedAccountData = [KashierConnectedAccountParser parseConnectedAccountData:connectedAccount];
+    if(connectedAccountData != NULL){
+        [Kashier setConnectedAccount:connectedAccountData];
+    }
+    
+}
+
 
 RCT_EXPORT_METHOD(payUsingCard:(NSDictionary*)cardData
 				  _:(NSString*)shopperReference
